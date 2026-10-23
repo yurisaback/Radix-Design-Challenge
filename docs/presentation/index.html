@@ -71,28 +71,29 @@
 <!-- 3 · Task -->
 <section class="slide">
   <span class="kicker"><i></i>Task</span>
-  <h2>Design a copilot people can trust, not just one that answers</h2>
-  <div class="grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 44px">
-    <div class="card"><div class="mono" style="color:var(--teal-300);font-size:22px">FIND</div><h3 style="margin-top:10px">One question, many documents</h3><p>Searches manuals, specs and procedures from a single query.</p></div>
-    <div class="card"><div class="mono" style="color:var(--teal-300);font-size:22px">INTERPRET</div><h3 style="margin-top:10px">A structured answer</h3><p>Summary, warnings, steps, for this equipment.</p></div>
-    <div class="card"><div class="mono" style="color:var(--teal-300);font-size:22px">VERIFY</div><h3 style="margin-top:10px">Evidence one tap away</h3><p>Shows the source, says what it could not substantiate, points to support.</p></div>
+  <h2 style="font-size:54px;max-width:1700px">Design a copilot people can trust, not just one that answers</h2>
+  <p class="small" style="margin-top:14px">Brief: a responsive, interactive prototype with at least 3 final screens.</p>
+  <div class="grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 28px">
+    <div class="card" style="padding:24px 32px"><div class="mono" style="color:var(--teal-300);font-size:20px">FIND</div><h3 style="margin-top:8px">One question, many documents</h3><p>Searches manuals, specs and procedures from a single query.</p></div>
+    <div class="card" style="padding:24px 32px"><div class="mono" style="color:var(--teal-300);font-size:20px">INTERPRET</div><h3 style="margin-top:8px">A structured answer</h3><p>Summary, warnings, steps, for this equipment.</p></div>
+    <div class="card" style="padding:24px 32px"><div class="mono" style="color:var(--teal-300);font-size:20px">VERIFY</div><h3 style="margin-top:8px">Evidence one tap away</h3><p>Shows the source, says what it could not substantiate, points to support.</p></div>
   </div>
-  <div class="grid" style="grid-template-columns: 1.25fr 1fr; margin-top: 26px">
-    <div class="card"><h3>Five risks to design against</h3>
-      <ul>
-        <li>Unsupported or fabricated answers</li>
-        <li>Outdated documentation</li>
-        <li>Wrong equipment context</li>
-        <li>Overreliance on AI</li>
-        <li>Insufficient evidence</li>
-      </ul>
-      <p style="margin-top:18px;padding-top:16px;border-top:1px solid var(--line);color:var(--teal-300)">Behind all five: the AI agent must be very well structured, so its research stays coherent with the project and with the user who is searching.</p></div>
-    <div style="display:flex;flex-direction:column;gap:26px">
-      <div class="card" style="border-color:var(--amber)"><h3 style="color:var(--amber)">Boundary</h3><p>The assistant supports the professional. It never authorizes a procedure or replaces manufacturer instructions.</p></div>
-      <div class="card"><h3>Brief</h3><p>A responsive, interactive prototype with at least 3 final screens, evaluated on reasoning, UX structure, simplification, visual quality, work with AI and autonomy.</p></div>
+  <div class="grid" style="grid-template-columns: 1.5fr 1fr; margin-top: 22px">
+    <div class="card" style="padding:24px 32px"><h3>Five risks to design against</h3>
+      <ul style="columns:2;column-gap:40px"><li>Unsupported or fabricated answers</li><li>Outdated documentation</li><li>Wrong equipment context</li><li>Overreliance on AI</li><li>Insufficient evidence</li></ul></div>
+    <div class="card" style="border-color:var(--amber);padding:24px 32px"><h3 style="color:var(--amber)">Boundary</h3><p>The assistant supports the professional. It never authorizes a procedure or replaces manufacturer instructions.</p></div>
+  </div>
+  <div class="card" style="margin-top:22px;padding:22px 32px;border-color:var(--teal)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="margin:0;color:var(--teal-300)">What makes the answers reliable</h3><span class="tag tag--teal">Concept for a real product, not built here</span></div>
+    <div style="display:flex;gap:12px;margin-top:16px">
+      <div class="lay"><b>1</b>Authorized, up-to-date knowledge base</div>
+      <div class="lay"><b>2</b>API and information retrieval</div>
+      <div class="lay"><b>3</b>Orchestration and interaction rules</div>
+      <div class="lay"><b>4</b>Structured answers with verifiable references</div>
+      <div class="lay"><b>5</b>Uncertainty handling and escalation to human support</div>
     </div>
   </div>
-  <div class="foot"><span>Tess – AI Tech Copilot · 3 / 10</span><span>Defined in the <a href="https://docs.google.com/document/d/1jcxgF5JUd6h43P0SXuCKx555TXa_yM2Hj0ZjNnxvur4/edit?usp=sharing" target="_blank" rel="noopener" style="margin-left:0">PRD · sections 3, 5, 6 and 9</a></span></div>
+  <div class="foot"><span>Tess – AI Tech Copilot · 3 / 10</span><span>Defined in the <a href="https://docs.google.com/document/d/1jcxgF5JUd6h43P0SXuCKx555TXa_yM2Hj0ZjNnxvur4/edit?usp=sharing" target="_blank" rel="noopener" style="margin-left:0">PRD · sections 3, 5, 6, 9 and 11</a></span></div>
 </section>
 
 <!-- 4 · Action 1: reasoning -->
@@ -139,31 +140,27 @@
   <div class="foot"><span>Tess – AI Tech Copilot · 5 / 10</span><span></span></div>
 </section>
 
-<!-- 6 · Action 3: design system -->
+<!-- 6 · Action 3: design system and desktop -->
 <section class="slide">
-  <span class="kicker"><i></i>Action 3 · Design system</span>
-  <h2>Built once, in Figma and in code, with the same names</h2>
-  <div class="grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 40px">
-    <div><div class="stat">4</div><div class="stat-l">variable collections: Primitives, Color (Light and Dark), Spacing, Radius</div></div>
-    <div><div class="stat">10</div><div class="stat-l">text styles in IBM Plex Sans and Mono</div></div>
-    <div><div class="stat">35</div><div class="stat-l">components with variants, reused in every final screen</div></div>
-    <div><div class="stat">25</div><div class="stat-l">text and boundary pairs checked against WCAG 2.2 AA</div></div>
+  <span class="kicker"><i></i>Action 3 · Design system and desktop</span>
+  <h2 style="font-size:54px">One design system, two layouts</h2>
+  <div class="grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 26px; gap: 36px">
+    <div class="mini"><div class="stat">4</div><div class="stat-l">variable collections, Light and Dark</div></div>
+    <div class="mini"><div class="stat">10</div><div class="stat-l">text styles, IBM Plex Sans and Mono</div></div>
+    <div class="mini"><div class="stat">35</div><div class="stat-l">components, reused on every screen</div></div>
+    <div class="mini"><div class="stat">25</div><div class="stat-l">contrast pairs checked, WCAG 2.2 AA</div></div>
   </div>
-  <div class="sw" style="margin-top:40px">
-    <div style="background:#0e1217;color:#c9d3dc">surface<br>#0E1217</div>
-    <div style="background:#151b22;color:#c9d3dc">subtle<br>#151B22</div>
-    <div style="background:#212a34;color:#c9d3dc">muted<br>#212A34</div>
-    <div style="background:#35bfae;color:#04201c">accent<br>#35BFAE</div>
-    <div style="background:#0b2926;color:#5ed6c7">accent subtle<br>#0B2926</div>
-    <div style="background:#2b1e08;color:#f7b955">warning<br>#F7B955</div>
-    <div style="background:#eef2f5;color:#0e1217">text<br>#EEF2F5</div>
+  <div style="display:flex;gap:56px;margin-top:28px;align-items:flex-start">
+    <div style="flex:none;width:830px"><img src="img/desktop.png" alt="Static desktop preview of the prototype" style="display:block;width:830px;border-radius:14px;border:1px solid var(--line);box-shadow:0 30px 60px rgba(0,0,0,.5)"><p class="small" style="margin-top:14px;font-size:20px">Desktop preview in the prototype: same components, wider layout.</p></div>
+    <div class="capcol" style="gap:26px">
+      <h3 style="margin:0;font:600 32px/1.2 var(--sans)">Why the desktop is a static preview</h3>
+      <div class="it"><span class="num">1</span><div><h4>Time</h4><p>The challenge is short. I finished and polished the whole flow on mobile first.</p></div></div>
+      <div class="it"><span class="num">2</span><div><h4>Agility</h4><p>One complete path is better than two partial ones.</p></div></div>
+      <div class="it"><span class="num">3</span><div><h4>Focus on the persona</h4><p>Alex works across sites with a phone, so mobile is the primary interactive experience.</p></div></div>
+      <p class="small" style="font-size:20px">Open it in the prototype with the "View desktop version" button under the phone.</p>
+    </div>
   </div>
-  <div class="grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 26px">
-    <div class="card"><h3>Direction</h3><p>Graphite & Teal, picked from three MedTech proposals. Calm, technical, high contrast for hospital light.</p></div>
-    <div class="card"><h3>Type</h3><p style="font-family:var(--sans);font-weight:600;font-size:30px;color:var(--text)">IBM Plex Sans</p><p style="font-family:var(--mono);font-size:24px">Plex Mono for quoted source text</p></div>
-    <div class="card"><h3>Parity with code</h3><p>Figma variables carry code syntax and mirror <span class="mono">tokens.css</span>, so design and prototype cannot drift.</p></div>
-  </div>
-  <div class="foot"><span>Tess – AI Tech Copilot · 6 / 10</span><span><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-5" target="_blank" rel="noopener">Figma · 04 Foundations</a><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-6" target="_blank" rel="noopener">Figma · 05 Components</a></span></div>
+  <div class="foot"><span>Tess – AI Tech Copilot · 6 / 10</span><span><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-5" target="_blank" rel="noopener">Figma · 04 Foundations</a><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-6" target="_blank" rel="noopener">Figma · 05 Components</a><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-4" target="_blank" rel="noopener">Figma · 03 Desktop wireframes</a></span></div>
 </section>
 
 <!-- 7 · Screens 1-3 -->
@@ -180,7 +177,7 @@
       <div class="it"><span class="num">1</span><div><h4>Main interface</h4><p>No equipment assumed. Suggested queries and a ready message field.</p></div></div>
       <div class="it"><span class="num">2</span><div><h4>AI interaction</h4><p>Tess asks for the firmware and what the pump shows, and records each answer.</p></div></div>
       <div class="it"><span class="num">3</span><div><h4>Structured response</h4><p>Summary, warnings first, a citation on each step, what was ruled out and what is not covered.</p></div></div>
-      <div class="card" style="border-color:var(--teal);background:var(--teal-dark);padding:22px 28px"><h3 style="color:var(--teal-300);font-size:26px;margin-bottom:8px">Desktop version also available</h3><p style="font-size:22px">The prototype includes a desktop version, a static preview that is not interactive. Use the "View desktop version" button under the phone. This presentation focuses on mobile, the tested experience.</p></div>
+      <div class="card" style="border-color:var(--teal);background:var(--teal-dark);padding:22px 28px"><h3 style="color:var(--teal-300);font-size:26px;margin-bottom:8px">Desktop version also available</h3><p style="font-size:22px">The prototype includes a desktop version, a static preview that is not interactive. Use the "View desktop version" button under the phone. This presentation focuses on mobile, the primary interactive experience.</p></div>
     </div>
   </div>
   <div class="foot"><span>Tess – AI Tech Copilot · 7 / 10</span><span><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-7" target="_blank" rel="noopener">Figma · 06 Final screens</a><a href="https://radix-design-challenge.vercel.app" target="_blank" rel="noopener">Try the prototype</a></span></div>
@@ -235,13 +232,14 @@
 <section class="slide">
   <span class="kicker"><i></i>Result</span>
   <h2>What was delivered, and what is not proven</h2>
-  <div class="grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 40px">
+  <div class="grid" style="grid-template-columns: 1fr 1fr 1.35fr; margin-top: 36px">
     <div class="card"><h3>Delivered</h3>
-      <ul><li>5 final screens in 2 scenarios</li><li>Design system and developer handoff</li><li>Testable mobile prototype, live</li><li>Review against the PRD success criteria, requirements, risks and guardrails</li></ul></div>
+      <ul><li>5 final screens in 2 scenarios</li><li>Design system and developer handoff</li><li>Interactive mobile prototype, live</li><li>Review against the PRD success criteria, requirements, risks and guardrails</li></ul></div>
     <div class="card" style="border-color:var(--amber)"><h3 style="color:var(--amber)">Limits and conscious choices</h3>
-      <ul><li>No interviews or usability tests: nothing is claimed about time saved or trust</li><li>Desktop is a static preview, available in the prototype through the "View desktop version" button; mobile is the tested experience</li><li>"Simulated content" is flagged outside the phone so the product looks real</li><li>All manuals and equipment are fictional</li></ul></div>
-    <div class="card"><h3>Next</h3>
-      <ul><li>Test H1 to H4 with field engineers</li><li>Real, governed documentation</li><li>Interactive desktop</li><li>Measure answer verification and escalation</li></ul></div>
+      <ul><li>No interviews or usability tests: nothing is claimed about time saved or trust</li><li>Desktop is a static preview, available in the prototype through the "View desktop version" button; mobile is the primary interactive experience</li><li>"Simulated content" is flagged outside the phone so the product looks real</li><li>All manuals and equipment are fictional</li></ul></div>
+    <div class="card"><h3>Next: validate the PRD hypotheses</h3><p style="margin-bottom:10px"><span class="tag tag--teal" style="font-size:18px;padding:5px 12px">To validate, not results</span></p>
+      <ul style="font-size:22px"><li><b>H1</b> One entry point reduces the effort of finding information</li><li><b>H2</b> A source beside each statement lets users verify before acting</li><li><b>H3</b> A fixed answer structure is easier to scan on a phone</li><li><b>H4</b> A clear "not enough evidence" state beats a confident unsupported answer</li></ul>
+      <p style="margin-top:12px;font-size:21px">Then real, governed documentation and an interactive desktop.</p></div>
   </div>
   <div style="display:flex;gap:16px;margin-top:34px">
     <a class="btn btn--solid" href="https://radix-design-challenge.vercel.app" target="_blank" rel="noopener"><svg class="ic"><use href="#i-phone"/></svg>Prototype</a>

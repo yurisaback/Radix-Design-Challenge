@@ -131,3 +131,8 @@ td:first-child { width: auto; padding-right: 40px; }
 .capcol h4 { margin: 0; font: 600 30px/1.2 var(--sans); }
 .capcol p { margin-top: 8px; font: 400 23px/1.45 var(--sans); color: var(--text-2); }
 .capcol ul { margin: 8px 0 0; padding-left: 24px; font: 400 23px/1.5 var(--sans); color: var(--text-2); }
+
+.lay { flex: 1; display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 14px; background: var(--bg-3); font: 400 21px/1.3 var(--sans); color: var(--text-2); }
+.lay b { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--teal); color: #04201c; font: 600 18px/1 var(--sans); }
+.mini .stat { font-size: 48px; }
+.mini .stat-l { font-size: 20px; margin-top: 6px; }

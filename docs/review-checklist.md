@@ -11,7 +11,7 @@ Reviewed on the live prototype (https://radix-design-challenge.vercel.app) and o
 | The user can initiate and complete the primary consultation flow | Met | Home, suggestion or typed message, five guided questions, structured answer, source, follow-up, insufficient evidence, restart |
 | Clear hierarchy; references reachable from the information they support | Met | Summary first, warnings before steps, a citation on every step, warning and finding; each opens the source at that section |
 | The interface communicates uncertainty and limitations | Met | "Based on your answers", "Ruled out… not verified by the assistant", "Not covered by the documents", insufficient-evidence state |
-| Usable at mobile widths and adapts to desktop, with consistent components | Met with a decision | Mobile is fully testable; desktop is a static preview that uses the same components (see section 6) |
+| Usable at mobile widths and adapts to desktop, with consistent components | Met with a decision | Mobile is fully interactive; desktop is a static preview that uses the same components (see section 6) |
 
 ## 2. Included in the MVP concept (PRD 6.1)
 
@@ -83,7 +83,7 @@ Out of scope items were respected: no agent, no integration, no diagnosis, no au
 ## 7. Decisions that differ from the PRD wording
 
 1. **"Illustrative" label only outside the phone.** Reason: the project is a design challenge, the note below the phone already says so, and the phone should look like a real product.
-2. **Desktop is a static preview, not interactive.** Reason: the testable environment is mobile; the preview shows component consistency and hierarchy.
+2. **Desktop is a static preview, not interactive.** Reason: the interactive environment is mobile; the preview shows component consistency and hierarchy.
 
 ## 8. Accessibility checks
 

@@ -12,7 +12,7 @@ Tess is a hypothetical AI assistant that helps field service engineers find, und
 
 ## How to use the prototype
 
-The prototype is built mobile first and opens as a phone mockup. Everything testable happens inside the phone.
+The prototype is built mobile first and opens as a phone mockup. Everything interactive happens inside the phone.
 
 1. Start with the first suggestion ("Resume last topic"), or tap the message field and send the message that is typed for you.
 2. Answer Tess's questions by tapping the option that blinks softly (firmware, patient safety, line, filters, Occlusion Sensitivity).
@@ -83,7 +83,7 @@ The high-fidelity screens are built only from the library on pages 04 and 05, in
 ## Decisions worth knowing
 
 - **Simulated content is flagged outside the device only.** A note below the phone says the content is simulated. Inside the phone the interface looks like a real product on purpose, so the PRD guardrail "label simulated content as illustrative" is applied at the page level, not on each screen.
-- **Desktop is a static preview.** The testable experience is the mobile one; the desktop preview shows consistency of components and hierarchy.
+- **Desktop is a static preview.** The primary interactive experience is the mobile one; the desktop preview shows consistency of components and hierarchy.
 - **The demo is scripted and fail-proof.** Each turn has one active action, signalled by a soft blink; anything else shows a short hint. The conversation has no dead ends and can be restarted.
 - **Citations everywhere.** Every step, warning and statement that depends on a document carries a clickable citation. Nothing is presented as a procedure without a reference.
 - **Accessibility:** dark palette checked against WCAG 2.2 AA contrast (text 4.5:1, interface boundaries 3:1), visible focus, accessible names on controls, live announcements, reduced-motion support, touch targets of 44 px for primary controls.

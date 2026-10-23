@@ -130,7 +130,7 @@ button[aria-disabled='true'] { cursor: default; }
 .composer--typing .composer-field--ready::after { content: ''; width: 2px; height: 1.1em; margin-left: 2px; background: currentColor; animation: caret 0.9s steps(1) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
 .composer .icon-btn { border-color: var(--color-border-default); color: var(--color-text-on-input-disabled); }
-.composer .icon-btn--filled { background: var(--color-bg-accent-strong); border-color: var(--color-bg-accent-strong); color: var(--color-text-on-accent-strong); }
+.composer .icon-btn--filled, .composer .icon-btn--primary { background: var(--color-bg-accent-strong); border-color: var(--color-bg-accent-strong); color: var(--color-text-on-accent-strong); }
 
 /* Sidebar, source overlay, toast */
 .scrim { position: absolute; inset: 0; z-index: 25; background: rgba(0, 0, 0, 0.62); opacity: 0; pointer-events: none; transition: opacity 0.25s; }

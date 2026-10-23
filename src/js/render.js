@@ -169,7 +169,7 @@ export const composer = (c) => {
     : c.mode === 'typing'
       ? `<span class="icon-btn icon-btn--filled" aria-hidden="true">${ICON.up}</span>`
       : `<span class="icon-btn" aria-hidden="true">${ICON.up}</span>`;
-  return `<footer class="composer composer--${c.mode}"><div class="composer-box"><button class="icon-btn" data-action="attach" aria-label="Add to session">${ICON.plus}</button>${field}${send}</div></footer>`;
+  return `<footer class="composer composer--${c.mode}"><div class="composer-box"><button class="icon-btn icon-btn--primary" data-action="attach" aria-label="Add to session">${ICON.plus}</button>${field}${send}</div></footer>`;
 };
 
 export const sheetContent = () => `

@@ -1,5 +1,6 @@
 // HTML builders for the prototype components. Pure functions: state in, markup out.
-import { EQUIPMENT, USER, SUGGESTIONS, RECENTS, NAV, BASIS, SOURCES, RESPONSE, INSUFFICIENT } from './data.js';
+// Elements marked .type-me are typed out by app.js; elements marked .reveal fade in after the text.
+import { EQUIPMENT, USER, SUGGESTIONS, RECENTS, NAV, BASIS, CITE, SOURCES, RESPONSE, INSUFFICIENT } from './data.js';
 
 export const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -9,27 +10,34 @@ const ICON = {
   back: '<svg viewBox="0 0 20 20" width="22" height="22" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
   chevron: '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="m7.5 4.5 5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
   close: '<svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>',
+  download: '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 3.5v9M6 9l4 4 4-4M4 16h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
+  file: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 3h7l4.5 4.5V20a1 1 0 0 1-1 1h-10.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M13.5 3v4.5H18" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/></svg>',
+  check: '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="m4.5 10.5 3.5 3.5 7.5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
+  history: '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M3.5 10a6.5 6.5 0 1 0 2-4.7M3.5 3.8v3h3M10 6.5V10l2.5 1.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
   alert: '<svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10 5.8v5M10 13.6v.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
 };
 
+// paragraph typed out by the engine while streaming (s = true), otherwise plain text
+const tp = (cls, text, s) => `<p class="${cls} type-me" data-text="${esc(text)}">${s ? '' : esc(text)}</p>`;
+
 export const pill = (label, kind = 'neutral') => `<span class="pill pill--${kind}">${esc(label)}</span>`;
 
-export const citeBtn = (label, { src = null, active = false } = {}) =>
-  active
-    ? `<button class="cite cite--active" data-action="cite" data-src="${src}" aria-label="Open source ${esc(label)}">${esc(label)}</button>`
-    : `<button class="cite" data-action="inactive" aria-disabled="true">${esc(label)}</button>`;
+// Every citation opens its source at the cited section. The one that blinks softly is the suggested next step.
+export const citeBtn = (id, { primary = false } = {}) =>
+  `<button class="cite${primary ? ' cite--blink' : ''}" data-action="cite" data-src="${id}" aria-label="Open source ${esc(CITE[id])}">${esc(CITE[id])}</button>`;
+const citeList = (ids, opts) => `<div class="cites">${ids.map((id, i) => citeBtn(id, i === 0 ? opts : {})).join('')}</div>`;
 
 export const header = (title, { back = false } = {}) => `
   <header class="header">
     ${back
-      ? `<button class="icon-plain" data-action="back" aria-label="Back to answer">${ICON.back}</button>`
+      ? `<button class="icon-plain" data-action="back" aria-label="Back to conversation">${ICON.back}</button>`
       : `<button class="icon-plain" data-action="menu" aria-label="Open menu"><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>`}
     <h1 class="t-title">${esc(title)}</h1>
     ${back ? '<span class="icon-plain" aria-hidden="true"></span>' : `<span class="avatar" role="img" aria-label="${USER.name}, ${USER.role}">${USER.name[0]}</span>`}
   </header>`;
 
-export const ctxBar = (firmware) => `
-  <div class="ctx-bar" role="status">
+export const ctxBar = (firmware, fresh = false) => `
+  <div class="ctx-bar${fresh ? ' ctx-bar--in' : ''}" role="status">
     <span class="dot" aria-hidden="true"></span>
     <span class="t-caption ctx-name">${esc(EQUIPMENT)}</span>
     ${firmware ? pill('Firmware ' + firmware, 'info') : pill('Firmware: not set', 'warning')}
@@ -51,12 +59,11 @@ export const homeView = () => `
     <p class="t-label muted">Suggested</p>
     <div class="suggest-list">
       ${SUGGESTIONS.map((s) => `
-        <button class="suggest${s.start ? ' suggest--start' : ''}" data-action="suggest" data-flow="${s.flow}">
-          <span class="suggest-text"><span class="t-label muted">${esc(s.tag)}${s.start ? ' · Start here' : ''}</span><span class="t-body-strong">${esc(s.text)}</span></span>
+        <button class="suggest" data-action="suggest" data-flow="${s.flow}">
+          <span class="suggest-text"><span class="t-label muted suggest-tag">${s.resume ? ICON.history : ''}${esc(s.tag)}</span><span class="t-body-strong">${esc(s.text)}</span></span>
           <span class="suggest-chevron">${ICON.chevron}</span>
         </button>`).join('')}
     </div>
-    <p class="t-caption muted home-note">Simulated content for a design prototype. Not manufacturer guidance.</p>
   </div>`;
 
 export const userMsg = (text) => `<div class="msg msg-user"><div class="bubble t-body">${esc(text)}</div></div>`;
@@ -68,94 +75,92 @@ export const typingMsg = () => `<div class="msg msg-asst" role="status" aria-lab
 const callout = (kind, title, lines) => `
   <div class="callout callout--${kind}">
     <p class="t-body-strong callout-title">${esc(title)}</p>
-    ${lines.map((l) => `<p class="t-body">${esc(l)}</p>`).join('')}
+    ${lines.map(([text, ids]) => `<div class="callout-line"><p class="t-body">${esc(text)}</p>${citeList(ids)}</div>`).join('')}
   </div>`;
 
-const basisLine = () => `<div class="basis"><span class="t-caption">${esc(BASIS)}</span>${pill('Illustrative', 'illustrative')}</div>`;
+const basisLine = () => `<div class="basis reveal"><span class="t-caption">${esc(BASIS)}</span>${pill('Illustrative', 'illustrative')}</div>`;
 
-const responseBlock = () => `
+const responseBlock = (s) => `
   <div class="block">
     <div class="summary">
       <p class="t-label muted">Summary</p>
-      <p class="t-body-lg summary-text">${esc(RESPONSE.summary)}</p>
-      <div class="summary-meta">${pill('Based on your answers', 'neutral')}${citeBtn('[1] §5.3.1', { src: 'sm-5-3-1', active: true })}</div>
-      <p class="t-caption accent">Tap [1] §5.3.1 to verify the source</p>
+      ${tp('t-body-lg summary-text', RESPONSE.summary, s)}
+      <div class="summary-meta reveal">${pill('Based on your answers', 'neutral')}${citeBtn('sm-5-3-1', { primary: true })}</div>
     </div>
-    ${callout('warning', 'Before you start', RESPONSE.warnings)}
-    <div class="steps">
+    <div class="reveal">${callout('warning', 'Before you start', RESPONSE.warnings)}</div>
+    <div class="steps reveal">
       <p class="t-label muted">Next steps</p>
       ${RESPONSE.steps.map(([t, cs], i) => `
         <div class="step"><span class="step-num t-meta">${i + 1}</span>
-          <div class="step-body"><p class="t-body">${esc(t)}</p><div class="cites">${cs.map((c) => citeBtn(c)).join('')}</div></div></div>`).join('')}
+          <div class="step-body"><p class="t-body">${esc(t)}</p>${citeList(cs)}</div></div>`).join('')}
     </div>
-    <button class="ruled" data-action="inactive">
+    <button class="ruled reveal" data-action="inactive">
       <span class="ruled-text"><span class="t-body-strong">Ruled out in this conversation (2)</span><span class="t-caption muted">Based on your answers, not verified by the assistant.</span></span>${ICON.chevron}
     </button>
-    ${callout('info', 'Not covered by the documents', ['Pressure sensor module repair or calibration.  [1 §8.2]'])}
+    <div class="reveal">${callout('info', 'Not covered by the documents', RESPONSE.notCovered)}</div>
     ${basisLine()}
-    <div class="actions">
+    <div class="actions reveal">
       <button class="btn btn--secondary" data-action="inactive">Ask a follow-up</button>
       <button class="btn btn--secondary" data-action="toast" data-msg="Simulated: this would connect you to authorized support.">Contact authorized support</button>
     </div>
-    <p class="t-caption muted">Simulated content. Not manufacturer guidance. You decide whether to proceed.</p>
+    <p class="t-caption muted reveal">Simulated content. Not manufacturer guidance. You decide whether to proceed.</p>
   </div>`;
 
-const scheduleBlock = () => `
+const scheduleBlock = (s) => `
   <div class="block">
-    <p class="t-body-lg">The preventive maintenance schedule is in the Service Manual, section 6.1.</p>
-    <table class="mini-table"><thead><tr><th>Interval</th><th>Task</th></tr></thead><tbody>
+    ${tp('t-body-lg', 'The preventive maintenance schedule is in the Service Manual, section 6.1.', s)}
+    <table class="mini-table reveal"><thead><tr><th>Interval</th><th>Task</th></tr></thead><tbody>
       <tr><td>Every use</td><td>Visual inspection of housing, door and latch</td></tr>
       <tr><td>6 months</td><td>Cleaning (6.2), battery check (6.3)</td></tr>
       <tr><td>12 months</td><td>Performance verification (section 7)</td></tr>
     </tbody></table>
-    <div class="cites">${citeBtn('[1] Service Manual Rev C §6.1', { src: 'sm-6-1', active: true })}</div>
-    <p class="t-caption accent">Tap the citation to see the source</p>
+    <div class="cites reveal">${citeBtn('sm-6-1', { primary: true })}</div>
     ${basisLine()}
-    <p class="t-caption muted">Simulated content. Not manufacturer guidance.</p>
+    <p class="t-caption muted reveal">Simulated content. Not manufacturer guidance.</p>
   </div>`;
 
-const insufficientBlock = () => `
+const insufficientBlock = (s) => `
   <div class="block">
     <div class="banner" role="alert">
       <p class="banner-title t-title">${ICON.alert}Not enough evidence</p>
-      <p class="t-body">${esc(INSUFFICIENT.message)}</p>
+      ${tp('t-body', INSUFFICIENT.message, s)}
     </div>
-    <div><p class="t-label muted">What was found</p>
-      <ul class="plain-list">${INSUFFICIENT.found.map(([t, c]) => `<li class="t-body">${esc(t)}  <span class="muted">${esc(c)}</span></li>`).join('')}</ul></div>
-    <div class="cites">${citeBtn('[1] §8.2', { src: 'sm-8-2', active: true })}${citeBtn('[2] §2')}</div>
-    <p class="t-caption accent">Tap [1] §8.2 to see the source</p>
-    <div><p class="t-label muted">What was not found</p>
+    <div class="reveal"><p class="t-label muted">What was found</p>
+      <ul class="plain-list">${INSUFFICIENT.found.map(([t, id], i) => `<li class="t-body">${esc(t)} ${citeBtn(id, { primary: i === 0 })}</li>`).join('')}</ul></div>
+    <div class="reveal"><p class="t-label muted">What was not found</p>
       <ul class="plain-list">${INSUFFICIENT.notFound.map((t) => `<li class="t-body">${esc(t)}</li>`).join('')}</ul></div>
-    <div class="actions">
+    <div class="actions reveal">
       <button class="btn btn--primary" data-action="toast" data-msg="Simulated: this would connect you to authorized support.">Contact authorized support</button>
       <button class="btn btn--secondary" data-action="toast" data-msg="Simulated: this would open the official documentation.">Open official documentation</button>
       <button class="btn btn--ghost" data-action="reset">Start a new consultation</button>
     </div>
-    <p class="t-caption muted">Simulated content. Not manufacturer guidance.</p>
+    <p class="t-caption muted reveal">Simulated content. Not manufacturer guidance.</p>
   </div>`;
 
 export const asstMsg = (m) => {
-  const body = m.kind === 'response' ? responseBlock() : m.kind === 'schedule' ? scheduleBlock() : m.kind === 'insufficient' ? insufficientBlock() : '';
-  const paras = (m.paras || []).map((p) => `<p class="t-body-lg">${esc(p)}</p>`).join('');
-  const cites = m.cites && m.cites.length ? `<div class="cites">${m.cites.map((c) => citeBtn(c.label)).join('')}</div>` : '';
+  const s = !!m.stream;
+  const body = m.kind === 'response' ? responseBlock(s) : m.kind === 'schedule' ? scheduleBlock(s) : m.kind === 'insufficient' ? insufficientBlock(s) : '';
+  const paras = (m.paras || []).map((p) => tp('t-body-lg', p, s)).join('');
+  const cites = m.cites && m.cites.length ? `<div class="cites reveal">${m.cites.map((c) => citeBtn(c)).join('')}</div>` : '';
   const chips = m.chips && m.awaiting
-    ? `<div class="chips" role="group" aria-label="Quick replies">${m.chips.map((c, i) => c.active
+    ? `<div class="chips reveal" role="group" aria-label="Quick replies">${m.chips.map((c, i) => c.active
         ? `<button class="chip chip--active" data-action="chip" data-i="${i}">${esc(c.label)}</button>`
-        : `<button class="chip chip--inactive" data-action="inactive" aria-disabled="true">${esc(c.label)}</button>`).join('')}</div>
-       <p class="t-caption muted">Demo · tap the highlighted option</p>`
+        : `<button class="chip chip--inactive" data-action="inactive" aria-disabled="true">${esc(c.label)}</button>`).join('')}</div>`
     : '';
-  return `<div class="msg msg-asst">${asstLabel}${paras}${cites}${chips}${body}</div>`;
+  return `<div class="msg msg-asst${s ? ' is-streaming' : ''}">${asstLabel}${paras}${cites}${chips}${body}</div>`;
 };
 
 export const composer = (c) => {
   const field = c.mode === 'fill'
     ? `<button class="composer-field composer-field--fill" data-action="fill">${esc(c.placeholder)}</button>`
-    : c.mode === 'ready'
-      ? `<div class="composer-field composer-field--ready">${esc(c.text)}</div>`
+    : c.mode === 'ready' || c.mode === 'typing'
+      ? `<div class="composer-field composer-field--ready"${c.mode === 'typing' ? ' data-action="skip-typing"' : ''}>${esc(c.text)}</div>`
       : `<div class="composer-field" aria-disabled="true">${esc(c.placeholder)}</div>`;
   const send = c.mode === 'ready'
     ? `<button class="icon-btn icon-btn--filled" data-action="send" aria-label="Send message">${ICON.up}</button>`
-    : `<span class="icon-btn" aria-hidden="true">${ICON.up}</span>`;
+    : c.mode === 'typing'
+      ? `<span class="icon-btn icon-btn--filled" aria-hidden="true">${ICON.up}</span>`
+      : `<span class="icon-btn" aria-hidden="true">${ICON.up}</span>`;
   return `<footer class="composer composer--${c.mode}"><div class="composer-box"><span class="icon-btn" aria-hidden="true">${ICON.plus}</span>${field}${send}</div></footer>`;
 };
 
@@ -179,18 +184,21 @@ const quoteBlock = (q) => {
 
 export const sourceBody = (id, firmware) => {
   const s = SOURCES[id];
-  const within = firmware ? s.applies.some((a) => a === firmware) : null;
+  // "3.x" covers every 3.* firmware, "3.4.x" only itself
+  const covers = (a, fw) => a === fw || (a.split('.').length === 2 && fw.startsWith(a.slice(0, -1)));
+  const within = firmware ? s.applies.some((a) => covers(a, firmware)) : null;
   const check = within === null
     ? `<div class="vcheck vcheck--warn t-body-strong">Firmware is not set. Confirm the pump firmware (${s.applies.join(' or ')}) before applying this source.</div>`
     : `<div class="vcheck t-body-strong">Firmware ${esc(firmware)} in your context is within “Applies to”.</div>`;
   return `
     <div class="doc-card">
-      <p class="doc-title t-title">${citeBtn('[' + s.n + ']')}<span>${esc(s.title)}</span></p>
+      <p class="doc-title t-title"><span class="cite">[${s.n}]</span><span>${esc(s.title)}</span></p>
       <dl class="meta">
         <dt>Document</dt><dd>${esc(s.docId)}</dd><dt>Revision</dt><dd>${esc(s.rev)}</dd>
         <dt>Approval</dt><dd>${esc(s.approval)}</dd><dt>Applies to</dt><dd>Firmware ${s.applies.join(', ')}</dd>
         <dt>Section</dt><dd>${esc(s.section)}</dd></dl>
       ${pill('Illustrative · not manufacturer guidance', 'illustrative')}
+      <button class="link" data-action="download" data-src="${id}">${ICON.download}<span>Download full manual · PDF · ${esc(s.size)}</span></button>
     </div>
     ${check}
     <section class="source-text" aria-label="Source text"><p class="t-label muted">Source text · quoted from the document</p>
@@ -199,7 +207,19 @@ export const sourceBody = (id, firmware) => {
       <p class="t-body">${esc(s.explanation)}</p></section>`;
 };
 
+// Simulated OS notification for the download of a manual
+export const notif = ({ state, file, size }) => `
+  <button class="notif-card" data-action="dismiss-notif" aria-label="Dismiss notification">
+    <span class="notif-icon">${state === 'done' ? ICON.check : ICON.file}</span>
+    <span class="notif-text">
+      <span class="notif-head"><span>Downloads</span><span>now</span></span>
+      <span class="notif-title">${state === 'done' ? 'Download complete' : 'Downloading…'}</span>
+      <span class="notif-body">${esc(file)} · ${esc(size)}</span>
+      ${state === 'done' ? '' : '<span class="notif-bar"><i></i></span>'}
+    </span>
+  </button>`;
+
 export const sourceView = (id, firmware) => `
   ${header('Source', { back: true })}
-  <div class="source-body">${sourceBody(id, firmware)}
-    <button class="btn btn--primary" data-action="back">Back to answer</button></div>`;
+  <div class="source-body">${sourceBody(id, firmware)}</div>
+  <footer class="source-footer"><button class="btn btn--primary" data-action="back">Back to conversation</button></footer>`;

@@ -6,20 +6,29 @@ All content is simulated and illustrative. Sources: files in `docs/manuals/`.
 
 - **Tapping the composer fills the next scripted user message.** The text appears as if typed by the user; a tap on send submits it. No typing is required.
 - **When the assistant offers options, the user answers with the option chips**, not the composer. The composer is inactive during those turns.
-- Only the scripted option is active in each chip set. Other chips stay visible (they show the real decision space) but are inactive, with a short hint: "Not part of this demo path".
+- **All options in a chip set look identical** (secondary button, solid stroke). Only the scripted option is active, and it is signalled by a soft blink, with no "demo" captions on screen. Tapping another option shows a brief toast ("Choose the option that is blinking.") and the right one blinks.
 - Suggested queries on Home submit directly when tapped.
 - There is one ending per scenario. No other branches are built.
-- **Fail-proof by design.** Anyone must be able to complete the flow without prior knowledge. There are no dead ends and no wrong answers: every turn has exactly one active action (one chip or one composer fill), highlighted, with a short hint ("Tap the highlighted option"). A **New consultation** action restarts the demo at any point.
+- **Fail-proof by design.** Anyone must be able to complete the flow without prior knowledge. There are no dead ends and no wrong answers: every turn has exactly one active action (one chip or one composer fill), signalled by a soft blink (a brief toast appears if the wrong element is tapped). A **New consultation** action restarts the demo at any point.
 - **Only the sidebar open/close is interactive outside the conversation.** Sidebar content (recent consultations, equipment, documents, saved answers, profile) is figurative: it shows what the product would offer and does not navigate.
 - **Sidebar recents are simulated**, about other equipment types (patient monitor, ventilator, defibrillator, ultrasound, syringe pump), to show a realistic history. They are not openable.
 
-## Equipment context (default chip)
-`Meridian IP-300 · Infusion pump · Firmware: not set`
+## Equipment context
+The persona has just opened the page. **Home shows no equipment context**: nothing has been asked yet and the assistant must not assume a model.
+
+The context bar appears at the top **after the first message**, when the assistant recognises the equipment named in it ("IP-300"):
+`Meridian IP-300 · Infusion pump · Firmware: not set` (warning pill until the firmware is answered, then `Firmware 3.4.x`).
+Every suggested query names the equipment so this recognition is always possible.
+
+## Typing behaviour (human-like)
+- **User field:** the scripted message is typed character by character with an irregular rhythm (about 30 to 60 ms per key, longer after spaces and punctuation, rare hesitations) and a blinking caret. The send button stays outlined and disabled in the empty field (placeholder "How can I help you today?"), turns primary (teal) as soon as the demo starts typing, and becomes clickable when the message is complete.
+- **Assistant:** the three-dot indicator, then the answer text is written in small chunks with pauses at punctuation. Structured parts (callouts, steps, basis line, actions, chips, citations) fade in after the text, so nothing is tappable before the answer is complete.
+- **Skip:** tapping the message, or the field while typing, completes the text immediately. With "reduce motion" enabled the text appears at once.
 
 ## Suggested queries (home)
-1. "Error E-214 on an IP-300, what should I check?" → Scenario 1
-2. "Where is the preventive maintenance schedule?" → Scenario 3
-3. "Can I recalibrate the pressure sensor without the factory tool?" → Scenario 2
+1. **Resume last topic** · "Error E-214 on an IP-300, what should I check?" → Scenario 1 (same as typing the question; no highlight)
+2. "Where is the preventive maintenance schedule for the IP-300?" → Scenario 3
+3. "Can I recalibrate the IP-300 pressure sensor without the factory tool?" → Scenario 2
 
 ## Scenario 1 — Guided diagnosis (E-214)
 
@@ -59,7 +68,7 @@ The assistant asks one question per turn. Each question comes from a section of 
    4. If E-214 returns on a verified clear line, stop and contact authorized service. [1 §5.3, §8.3]
 4. **Ruled out in this conversation:** closed clamp or kink, blocked filter or access device. (Based on your answers, not verified by the assistant.)
 5. **Not covered:** pressure sensor module repair or calibration. [1 §8.2]
-6. **Citations are clickable** and replace a separate sources list. Each citation shows document and section, for example `[1] §5.3.1`. Tapping one opens the Source detail view at the cited section. In the demo only the highlighted citation `[1] §5.3.1` (in the summary) is active, with the hint "Tap to verify the source". The others are visible but inactive.
+6. **Citations are clickable** and replace a separate sources list. Each citation shows document and section, for example `[1] §5.3.1`. Tapping one opens the Source detail view at the cited section. **Every citation is clickable** and opens the Source detail overlay at the cited section (§1.2, §5.1, §5.3, §5.3.1, §6.1, §8.2, §8.3 of the Service Manual, §2 of the Alarm & Error Reference, §2.3 of the Operator's Guide). All look the same; `[1] §5.3.1` in the summary blinks softly as the suggested next step. Reading any source unlocks the follow-up; opening one during a chip question does not change the conversation.
 7. **Basis line** (version stays visible with every answer): "Based on: Service Manual Rev C · Alarm & Error Reference Rev D · Operator's Guide Rev B · Illustrative"
 8. **Next actions:** `Ask a follow-up` · `Contact authorized support` (figurative). The composer stays inactive until the user returns from the source.
 9. Footer: "Simulated content. Not manufacturer guidance. You decide whether to proceed."
@@ -75,7 +84,7 @@ If the user had selected `3.2.x` at turn 3, turns 10–11 would be skipped. This
 
 Triggered from Home (suggested query 3), or as the follow-up after Scenario 1: tapping the composer fills the question below.
 
-**User (composer fill):** Can I recalibrate the pressure sensor without the factory tool?
+**User (composer fill):** Can I recalibrate the IP-300 pressure sensor without the factory tool?
 
 **Assistant (variant of response):**
 - Banner: **Not enough evidence.** No procedure for this was found in the available documents.
@@ -86,7 +95,7 @@ Triggered from Home (suggested query 3), or as the follow-up after Scenario 1: t
 
 ## Scenario 3 — Document lookup
 
-**User:** Where is the preventive maintenance schedule?
+**User:** Where is the preventive maintenance schedule for the IP-300?
 **Assistant:** Short answer with one cited table (SM §6.1: every use, 6 months, 12 months) and `Open source`.
 
 ## Free text matching (simulated)
@@ -102,3 +111,9 @@ Applies only if the user types instead of using the composer fill.
 - Block **Assistant's explanation** (separate, labeled).
 - Badge: `Illustrative` on every source.
 - Version warning when the firmware in context is outside "Applies to".
+
+## Download of the full manual (simulated)
+- Every source overlay shows a link in the document card: "Download full manual · PDF · size". No file is created.
+- Tapping it shows a simulated system notification at the top of the phone, under the Dynamic Island: "Downloading…" with a short progress bar, then "Download complete" with the file name and size. It dismisses by itself after a few seconds, or by tapping it.
+- Files (simulated): `MIP300-SM_Rev-C.pdf` (3.2 MB), `MIP300-AER_Rev-D.pdf` (640 KB), `MIP300-OG_Rev-B.pdf` (1.1 MB).
+- The primary action "Back to conversation" is fixed at the bottom of the phone only while a manual reference is open.

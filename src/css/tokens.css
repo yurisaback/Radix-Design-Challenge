@@ -22,6 +22,13 @@
   --red-950: #351411;
   --green-300: #6fd68f;
   --green-950: #12301d;
+  /* Light primitives, used only by the message input so it stands out on the dark surface */
+  --graphite-50: #f4f6f8;
+  --graphite-100: #e4e7eb;
+  --graphite-500: #616e7c;
+  --graphite-600: #3e4c59;
+  --graphite-900: #1f2933;
+  --teal-700: #0b5a54;
 
   /* Semantic color */
   --color-bg-surface: var(--night-950);
@@ -45,6 +52,16 @@
   --color-border-accent: var(--teal-400);
   --color-border-warning: var(--amber-300);
   --color-border-danger: var(--red-300);
+
+  /* Message input (light pearl field on the dark surface) */
+  --color-bg-input: var(--graphite-50);
+  --color-bg-input-disabled: var(--graphite-100);
+  --color-text-on-input: var(--graphite-900);
+  --color-text-on-input-muted: var(--graphite-500);
+  --color-text-on-input-disabled: var(--graphite-600);
+  --color-text-on-input-accent: var(--teal-700);
+  --color-bg-accent-strong: var(--teal-700);
+  --color-text-on-accent-strong: var(--graphite-50);
 
   /* Spacing */
   --space-2xs: 2px;

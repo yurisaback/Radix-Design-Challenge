@@ -1,0 +1,10 @@
+{
+  "name": "radix-ai-technical-copilot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interactive prototype of the AI Technical Copilot (Radix design challenge). Simulated content only.",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.mjs"
+  }
+}

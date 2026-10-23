@@ -1,0 +1,53 @@
+/* Prototype stage: phone mockup (testable) and desktop preview (static). Not part of the product UI. */
+html, body { height: 100%; }
+body { margin: 0; background: radial-gradient(120% 90% at 50% 0%, #121a22 0%, var(--stage-bg) 60%); color: var(--color-text-primary); font-family: var(--font-sans); }
+.stage { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 16px; }
+
+/* Phone mockup (drawn in CSS) */
+.device-wrap { position: relative; }
+.device { position: absolute; top: 0; left: 0; width: 418px; height: 872px; padding: 14px; border-radius: 68px; transform-origin: top left;
+  background: linear-gradient(145deg, #5a5f66, #1b1e22 38%, #3a3f45 70%, #1b1e22);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.65), inset 0 0 0 2px #7a8087, inset 0 0 0 6px #0b0c0e; }
+.device-screen { position: relative; width: 390px; height: 844px; border-radius: 54px; overflow: hidden; background: #000; }
+.device-screen .app { --safe-top: 50px; }
+.device-screen .composer { padding-bottom: 30px; }
+.device-screen .sidebar { padding-bottom: 38px; }
+.device-screen .source-body { padding-bottom: 40px; }
+.island { position: absolute; z-index: 100; top: 11px; left: 50%; transform: translateX(-50%); width: 122px; height: 34px; border-radius: 20px; background: #000; }
+.statusbar { position: absolute; z-index: 90; top: 0; left: 0; right: 0; height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 8px 34px 0 40px; color: var(--color-text-primary); font: 600 15px var(--font-sans); }
+.sb-icons { display: flex; align-items: center; gap: 6px; }
+.home-indicator { position: absolute; z-index: 100; bottom: 8px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; border-radius: 3px; background: var(--color-text-primary); opacity: 0.85; }
+.hw { position: absolute; width: 4px; border-radius: 2px; background: #3a3f45; }
+.hw--action { left: -3px; top: 120px; height: 30px; }
+.hw--vol1 { left: -3px; top: 176px; height: 56px; }
+.hw--vol2 { left: -3px; top: 246px; height: 56px; }
+.hw--power { right: -3px; top: 220px; height: 92px; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.ctl { min-height: 44px; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--color-border-default); background: var(--color-bg-subtle); color: var(--color-text-primary); font: 500 14px/20px var(--font-sans); cursor: pointer; }
+.ctl:hover { background: var(--color-bg-muted); }
+.ctl:focus-visible { outline: 2px solid var(--color-border-accent); outline-offset: 2px; }
+.ctl--primary, .ctl[aria-pressed='true'] { background: var(--color-bg-accent); border-color: var(--color-border-accent); color: var(--color-text-on-accent); }
+.ctl--primary:hover { background: var(--color-bg-accent); filter: brightness(1.08); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Desktop preview (static) */
+#view-desktop { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+#view-desktop[hidden], #view-mobile[hidden] { display: none; }
+.desk-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; }
+.desk-note { margin: 0; padding: 6px 12px; border: 1px solid var(--color-border-warning); border-radius: 999px; background: var(--color-bg-warning-subtle); color: var(--color-text-warning); font: 500 13px/19px var(--font-sans); }
+.desk-tabs { display: flex; gap: 8px; }
+.desk-wrap { position: relative; }
+.browser { position: absolute; top: 0; left: 0; width: 1440px; transform-origin: top left; border-radius: 14px; overflow: hidden; border: 1px solid #2c3743; background: var(--color-bg-surface); box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55); }
+.browser-bar { height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: #1f2730; }
+.browser-bar i { width: 12px; height: 12px; border-radius: 50%; background: #3a4551; }
+.browser-bar .addr { margin-left: 16px; padding: 4px 16px; border-radius: 999px; background: var(--color-bg-surface); color: var(--color-text-muted); font: 400 13px/19px var(--font-sans); }
+
+/* Real phones: no mockup, the app fills the screen */
+.is-narrow .stage { padding: 0; gap: 0; justify-content: flex-start; }
+.is-narrow .device { position: static; width: 100%; height: 100dvh; padding: 0; border-radius: 0; background: none; box-shadow: none; transform: none; }
+.is-narrow .device-screen { width: 100%; height: 100dvh; border-radius: 0; }
+.is-narrow .app { width: 100%; height: 100dvh; --safe-top: env(safe-area-inset-top, 0px); }
+.is-narrow .device-screen .composer { padding-bottom: calc(var(--space-lg) + env(safe-area-inset-bottom, 0px)); }
+.is-narrow .statusbar, .is-narrow .island, .is-narrow .home-indicator, .is-narrow .hw, .is-narrow .controls, .is-narrow #view-desktop { display: none; }

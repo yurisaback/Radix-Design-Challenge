@@ -1,0 +1,72 @@
+/* Design tokens, Graphite & Teal, dark mode (default).
+   Mirrors the Figma variables: Primitives, Color (Dark mode), Spacing, Radius.
+   Contrast checked against WCAG 2.2 AA (text 4.5:1, UI boundaries 3:1). */
+:root {
+  color-scheme: dark;
+
+  /* Primitives (dark) */
+  --night-950: #0e1217;
+  --night-900: #151b22;
+  --night-800: #212a34;
+  --night-500: #6e7d8d;
+  --night-300: #a9b6c3;
+  --night-200: #c9d3dc;
+  --night-50: #eef2f5;
+  --teal-300: #5ed6c7;
+  --teal-400: #35bfae;
+  --teal-950: #0b2926;
+  --teal-ink: #04201c;
+  --amber-300: #f7b955;
+  --amber-950: #2b1e08;
+  --red-300: #ff8f85;
+  --red-950: #351411;
+  --green-300: #6fd68f;
+  --green-950: #12301d;
+
+  /* Semantic color */
+  --color-bg-surface: var(--night-950);
+  --color-bg-subtle: var(--night-900);
+  --color-bg-muted: var(--night-800);
+  --color-bg-accent: var(--teal-400);
+  --color-bg-accent-subtle: var(--teal-950);
+  --color-bg-warning-subtle: var(--amber-950);
+  --color-bg-danger-subtle: var(--red-950);
+  --color-bg-success-subtle: var(--green-950);
+  --color-text-primary: var(--night-50);
+  --color-text-secondary: var(--night-200);
+  --color-text-muted: var(--night-300);
+  --color-text-on-accent: var(--teal-ink);
+  --color-text-accent: var(--teal-300);
+  --color-text-warning: var(--amber-300);
+  --color-text-danger: var(--red-300);
+  --color-text-success: var(--green-300);
+  --color-border-default: var(--night-500);
+  --color-border-strong: var(--night-50);
+  --color-border-accent: var(--teal-400);
+  --color-border-warning: var(--amber-300);
+  --color-border-danger: var(--red-300);
+
+  /* Spacing */
+  --space-2xs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 48px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 999px;
+
+  /* Typography */
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  /* Prototype stage (outside the product) */
+  --stage-bg: #07090c;
+}

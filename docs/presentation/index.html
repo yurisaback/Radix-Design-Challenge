@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tess - AI Tech Copilot · Radix Design Challenge</title>
+<meta name="viewport" content="width=1920">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deck.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10.5 18.5h3"/></symbol>
+    <symbol id="i-figma" viewBox="0 0 24 24" fill="currentColor"><path d="M8 24c2.2 0 4-1.8 4-4v-4H8c-2.2 0-4 1.8-4 4s1.8 4 4 4z"/><path d="M4 12c0-2.2 1.8-4 4-4h4v8H8c-2.2 0-4-1.8-4-4z"/><path d="M4 4c0-2.2 1.8-4 4-4h4v8H8C5.8 8 4 6.2 4 4z"/><path d="M12 0h4c2.2 0 4 1.8 4 4s-1.8 4-4 4h-4V0z"/><path d="M20 12c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4 4 1.8 4 4z"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5M9 13h6M9 17h6M9 9h2"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<!-- 1 · Cover -->
+<section class="slide cover">
+  <div class="left">
+    <span class="kicker"><i></i>Radix Design Challenge</span>
+    <h1 style="margin-top:34px">Tess<br>AI Tech Copilot</h1>
+    <p class="lead" style="margin-top:34px;max-width:780px">An AI assistant that helps field engineers find, understand and verify technical information, built mobile first.</p>
+    <p class="small" style="margin-top:34px">Yuri Saback · Senior Product Designer</p>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:44px">
+      <a class="btn btn--solid" href="https://radix-design-challenge.vercel.app" target="_blank" rel="noopener"><svg class="ic"><use href="#i-phone"/></svg>Prototype</a>
+      <a class="btn" href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs" target="_blank" rel="noopener"><svg class="ic"><use href="#i-figma"/></svg>Figma</a>
+      <a class="btn" href="https://docs.google.com/document/d/1jcxgF5JUd6h43P0SXuCKx555TXa_yM2Hj0ZjNnxvur4/edit?usp=sharing" target="_blank" rel="noopener"><svg class="ic"><use href="#i-doc"/></svg>PRD</a>
+    </div>
+  </div>
+  <div class="phones">
+    <div class="p3 p3--a"><div class="dev" data-img="s1-home.png"></div></div>
+    <div class="p3 p3--b"><div class="dev" data-img="s3-response.png"></div></div>
+    <div class="p3 p3--c"><div class="dev" data-img="s4-source.png"></div></div>
+  </div>
+</section>
+
+<!-- 2 · Situation -->
+<section class="slide">
+  <span class="kicker"><i></i>Situation</span>
+  <h2>Alex needs the right answer in the field, and the proof behind it</h2>
+  <div class="grid" style="grid-template-columns: 640px 1fr; margin-top: 48px">
+    <div class="card" style="padding:36px">
+      <div style="display:flex;gap:28px;align-items:center">
+        <div class="avatar" role="img" aria-label="Alex, field service engineer"></div>
+        <div><div style="font:600 40px/1.1 var(--sans)">Alex, 34</div><div class="small" style="margin-top:8px">Field Service Engineer</div></div>
+      </div>
+      <p style="margin-top:26px;font:400 24px/1.5 var(--sans);color:var(--text-2)">Installs, inspects and repairs medical equipment in hospitals and clinics, moving between sites.</p>
+      <ul style="margin:18px 0 0;padding-left:26px;font:400 23px/1.5 var(--sans);color:var(--text-2)">
+        <li>Uses the phone to consult information on site</li>
+        <li>Switches between equipment, manuals and specialist support</li>
+        <li>Must know when the documents are not enough</li>
+      </ul>
+      <p style="margin-top:24px"><span class="tag">Design hypothesis, not research</span></p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div class="card icard"><div class="ibox"><svg class="ic"><use href="#i-search"/></svg></div><div><h3>The problem</h3><p>Manuals, specifications, error codes and troubleshooting guides live in different places. Finding the right one takes time, and the person needs it while standing at the equipment.</p></div></div>
+      <div class="card icard" style="border-color:var(--teal)"><div class="ibox"><svg class="ic"><use href="#i-target"/></svg></div><div><h3>Job to be done</h3><p style="font-style:italic">"When I need to inspect, maintain or troubleshoot a medical device, I want to find the relevant technical information and understand the next steps, so I can work efficiently while following authorized procedures."</p></div></div>
+      <div class="card icard" style="background:var(--teal-dark);border-color:var(--teal)"><div class="ibox"><svg class="ic"><use href="#i-phone"/></svg></div><div><h3 style="color:var(--teal-300)">Design decision: mobile first</h3><p>Alex works in many places and the phone is the fastest tool at hand. I designed for the phone first. The prototype also has a desktop version, a static preview, but the focus is mobile.</p></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Tess – AI Tech Copilot · 2 / 10</span><span>Defined in the <a href="https://docs.google.com/document/d/1jcxgF5JUd6h43P0SXuCKx555TXa_yM2Hj0ZjNnxvur4/edit?usp=sharing" target="_blank" rel="noopener" style="margin-left:0">PRD · sections 1 and 2</a></span></div>
+</section>
+
+<!-- 3 · Task -->
+<section class="slide">
+  <span class="kicker"><i></i>Task</span>
+  <h2>Design a copilot people can trust, not just one that answers</h2>
+  <div class="grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 44px">
+    <div class="card"><div class="mono" style="color:var(--teal-300);font-size:22px">FIND</div><h3 style="margin-top:10px">One question, many documents</h3><p>Searches manuals, specs and procedures from a single query.</p></div>
+    <div class="card"><div class="mono" style="color:var(--teal-300);font-size:22px">INTERPRET</div><h3 style="margin-top:10px">A structured answer</h3><p>Summary, warnings, steps, for this equipment.</p></div>
+    <div class="card"><div class="mono" style="color:var(--teal-300);font-size:22px">VERIFY</div><h3 style="margin-top:10px">Evidence one tap away</h3><p>Shows the source, says what it could not substantiate, points to support.</p></div>
+  </div>
+  <div class="grid" style="grid-template-columns: 1.25fr 1fr; margin-top: 26px">
+    <div class="card"><h3>Five risks to design against</h3>
+      <ul>
+        <li>Unsupported or fabricated answers</li>
+        <li>Outdated documentation</li>
+        <li>Wrong equipment context</li>
+        <li>Overreliance on AI</li>
+        <li>Insufficient evidence</li>
+      </ul>
+      <p style="margin-top:18px;padding-top:16px;border-top:1px solid var(--line);color:var(--teal-300)">Behind all five: the AI agent must be very well structured, so its research stays coherent with the project and with the user who is searching.</p></div>
+    <div style="display:flex;flex-direction:column;gap:26px">
+      <div class="card" style="border-color:var(--amber)"><h3 style="color:var(--amber)">Boundary</h3><p>The assistant supports the professional. It never authorizes a procedure or replaces manufacturer instructions.</p></div>
+      <div class="card"><h3>Brief</h3><p>A responsive, interactive prototype with at least 3 final screens, evaluated on reasoning, UX structure, simplification, visual quality, work with AI and autonomy.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Tess – AI Tech Copilot · 3 / 10</span><span>Defined in the <a href="https://docs.google.com/document/d/1jcxgF5JUd6h43P0SXuCKx555TXa_yM2Hj0ZjNnxvur4/edit?usp=sharing" target="_blank" rel="noopener" style="margin-left:0">PRD · sections 3, 5, 6 and 9</a></span></div>
+</section>
+
+<!-- 4 · Action 1: reasoning -->
+<section class="slide">
+  <span class="kicker"><i></i>Action 1 · Reasoning</span>
+  <h2>Simplify: one equipment, one flow, evidence at every step</h2>
+  <div class="flow" style="margin-top:30px">
+    <div class="st"><span class="n">01</span><b>Start</b><span>Suggested queries, no setup</span></div>
+    <div class="st"><span class="n">02</span><b>Context</b><span>Equipment and problem</span></div>
+    <div class="st"><span class="n">03</span><b>Answer</b><span>Structured, with uncertainty</span></div>
+    <div class="st"><span class="n">04</span><b>Verify</b><span>Open the cited source</span></div>
+    <div class="st"><span class="n">05</span><b>Continue or escalate</b><span>Follow-up or authorized support</span></div>
+  </div>
+  <div class="grid" style="grid-template-columns: 270px 270px 1fr; gap: 40px; margin-top: 30px; align-items: start">
+    <div><div class="phone" style="height:340px"><img src="img/w1-home.png" alt="Wireframe: main screen"></div><div class="cap" style="font-size:21px;margin-top:16px">Wireframe · Main<small>Reviewed before visual design</small></div></div>
+    <div><div class="phone" style="height:340px"><img src="img/w2-response.png" alt="Wireframe: response"></div><div class="cap" style="font-size:21px;margin-top:16px">Wireframe · Response<small>Hierarchy decided first</small></div></div>
+    <div class="tight" style="display:flex;flex-direction:column;gap:14px">
+      <div class="card"><h3>A guided diagnosis, not a data dump</h3><p>Fictional Meridian IP-300 infusion pump, error E-214. Tess asks short questions until the likely cause appears, so the user stays in control.</p></div>
+      <div class="card"><h3>One scripted ending</h3><p>The demo cannot fail: each turn has one active action, so every evaluator reaches the same complete story.</p></div>
+      <div class="card"><h3>Mobile first, desktop kept</h3><p>Wireframes for mobile (M1–M7) and desktop (D1–D2). The mobile flow is fully testable; desktop is a static preview.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Tess – AI Tech Copilot · 4 / 10</span><span><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-2" target="_blank" rel="noopener">Figma · 01 Flow</a><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-3" target="_blank" rel="noopener">Figma · 02 Wireframes</a></span></div>
+</section>
+
+<!-- 5 · Action 2: decisions -->
+<section class="slide">
+  <span class="kicker"><i></i>Action 2 · Decisions</span>
+  <h2>Eight decisions, each tied to a risk</h2>
+  <table>
+    <thead><tr><th>Decision</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Tess asks for the firmware instead of assuming it</td><td>A wrong equipment context gives a wrong procedure</td></tr>
+      <tr><td>A citation on every step, inside the text</td><td>Verify without leaving the answer; no separate source list</td></tr>
+      <tr><td>Warnings come before the steps</td><td>A warning below the steps gets missed</td></tr>
+      <tr><td>Source text and AI explanation in separate blocks</td><td>Never blend a quote with a paraphrase</td></tr>
+      <tr><td>"Ruled out" is labelled "not verified by the assistant"</td><td>Show the limits of what was checked</td></tr>
+      <tr><td>Insufficient evidence: no steps, escalation first</td><td>Never fill a gap with plausible steps</td></tr>
+      <tr><td>Dark mode only, contrast checked</td><td>One theme fully verified beats two half-verified</td></tr>
+      <tr><td>No hover, 44 px primary targets</td><td>Touch first; pressed state instead of hover</td></tr>
+    </tbody>
+  </table>
+  <p class="note">All of these decisions follow the hypotheses, requirements, risks and guardrails defined in the PRD created at the start of the project (sections 4, 8, 9 and 10).</p>
+  <div class="foot"><span>Tess – AI Tech Copilot · 5 / 10</span><span></span></div>
+</section>
+
+<!-- 6 · Action 3: design system -->
+<section class="slide">
+  <span class="kicker"><i></i>Action 3 · Design system</span>
+  <h2>Built once, in Figma and in code, with the same names</h2>
+  <div class="grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 40px">
+    <div><div class="stat">4</div><div class="stat-l">variable collections: Primitives, Color (Light and Dark), Spacing, Radius</div></div>
+    <div><div class="stat">10</div><div class="stat-l">text styles in IBM Plex Sans and Mono</div></div>
+    <div><div class="stat">35</div><div class="stat-l">components with variants, reused in every final screen</div></div>
+    <div><div class="stat">25</div><div class="stat-l">text and boundary pairs checked against WCAG 2.2 AA</div></div>
+  </div>
+  <div class="sw" style="margin-top:40px">
+    <div style="background:#0e1217;color:#c9d3dc">surface<br>#0E1217</div>
+    <div style="background:#151b22;color:#c9d3dc">subtle<br>#151B22</div>
+    <div style="background:#212a34;color:#c9d3dc">muted<br>#212A34</div>
+    <div style="background:#35bfae;color:#04201c">accent<br>#35BFAE</div>
+    <div style="background:#0b2926;color:#5ed6c7">accent subtle<br>#0B2926</div>
+    <div style="background:#2b1e08;color:#f7b955">warning<br>#F7B955</div>
+    <div style="background:#eef2f5;color:#0e1217">text<br>#EEF2F5</div>
+  </div>
+  <div class="grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 26px">
+    <div class="card"><h3>Direction</h3><p>Graphite & Teal, picked from three MedTech proposals. Calm, technical, high contrast for hospital light.</p></div>
+    <div class="card"><h3>Type</h3><p style="font-family:var(--sans);font-weight:600;font-size:30px;color:var(--text)">IBM Plex Sans</p><p style="font-family:var(--mono);font-size:24px">Plex Mono for quoted source text</p></div>
+    <div class="card"><h3>Parity with code</h3><p>Figma variables carry code syntax and mirror <span class="mono">tokens.css</span>, so design and prototype cannot drift.</p></div>
+  </div>
+  <div class="foot"><span>Tess – AI Tech Copilot · 6 / 10</span><span><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-5" target="_blank" rel="noopener">Figma · 04 Foundations</a><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-6" target="_blank" rel="noopener">Figma · 05 Components</a></span></div>
+</section>
+
+<!-- 7 · Screens 1-3 -->
+<section class="slide">
+  <span class="kicker"><i></i>Action 4 · Final screens 1 to 3</span>
+  <h2 style="font-size:54px">From start to a structured answer</h2>
+  <div style="display:flex;gap:70px;margin-top:22px;align-items:flex-start">
+    <div class="row3">
+      <div class="dev" data-img="s1-home.png" style="--s:.74"></div>
+      <div class="dev" data-img="s2-interaction.png" style="--s:.74"></div>
+      <div class="dev" data-img="s3-response.png" style="--s:.74"></div>
+    </div>
+    <div class="capcol" style="align-self:stretch">
+      <div class="it"><span class="num">1</span><div><h4>Main interface</h4><p>No equipment assumed. Suggested queries and a ready message field.</p></div></div>
+      <div class="it"><span class="num">2</span><div><h4>AI interaction</h4><p>Tess asks for the firmware and what the pump shows, and records each answer.</p></div></div>
+      <div class="it"><span class="num">3</span><div><h4>Structured response</h4><p>Summary, warnings first, a citation on each step, what was ruled out and what is not covered.</p></div></div>
+      <div class="card" style="border-color:var(--teal);background:var(--teal-dark);padding:22px 28px"><h3 style="color:var(--teal-300);font-size:26px;margin-bottom:8px">Desktop version also available</h3><p style="font-size:22px">The prototype includes a desktop version, a static preview that is not interactive. Use the "View desktop version" button under the phone. This presentation focuses on mobile, the tested experience.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Tess – AI Tech Copilot · 7 / 10</span><span><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-7" target="_blank" rel="noopener">Figma · 06 Final screens</a><a href="https://radix-design-challenge.vercel.app" target="_blank" rel="noopener">Try the prototype</a></span></div>
+</section>
+
+<!-- 8 · Screens 4-5 -->
+<section class="slide">
+  <span class="kicker"><i></i>Action 5 · Final screens 4 and 5</span>
+  <h2 style="font-size:54px">Verify, or admit the limit</h2>
+  <div style="display:flex;gap:70px;margin-top:22px;align-items:flex-start">
+    <div class="row3">
+      <div class="dev" data-img="s4-source.png" style="--s:.74"></div>
+      <div class="dev" data-img="s5-insufficient.png" style="--s:.74"></div>
+    </div>
+    <div class="capcol" style="align-self:stretch">
+      <div class="it"><span class="num">4</span><div><h4>Source detail</h4><ul><li>Document, section, revision, approval</li><li>Firmware applicability check</li><li>Quoted text apart from the AI explanation</li></ul><p style="color:var(--text-3)">The third strategic screen: traceability is the concept's differentiator and the direct answer to the fabrication and overreliance risks.</p></div></div>
+      <div class="it"><span class="num">5</span><div><h4>Insufficient evidence</h4><ul><li>What was found, with citations, and what was not found</li><li>No steps, no invented procedure</li><li>Primary action: contact authorized support</li></ul><p style="color:var(--text-3)">A variant of the response screen, built from the same components.</p></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Tess – AI Tech Copilot · 8 / 10</span><span><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=2-7" target="_blank" rel="noopener">Figma · 06 Final screens</a><a href="https://radix-design-challenge.vercel.app" target="_blank" rel="noopener">Try the prototype</a></span></div>
+</section>
+
+<!-- 9 · Action 6: AI and autonomy -->
+<section class="slide">
+  <span class="kicker"><i></i>Action 6 · AI and autonomy</span>
+  <h2>Directed by me, built with AI</h2>
+  <div class="tl">
+    <div class="ph"><b>Definition</b><span>PRD, persona, scope</span></div>
+    <div class="ph"><b>Wireframes</b><span>Approved flow</span></div>
+    <div class="ph"><b>Design system</b><span>Variables, components</span></div>
+    <div class="ph"><b>Prototype</b><span>Mobile first</span></div>
+    <div class="ph"><b>Deploy</b><span>GitHub and Vercel</span></div>
+    <div class="ph"><b>High fidelity</b><span>5 final screens</span></div>
+    <div class="ph"><b>Handoff</b><span>States and specs</span></div>
+  </div>
+  <p class="small" style="margin-top:20px">Every phase ended with my review and approval before the next one started.</p>
+  <div class="grid" style="grid-template-columns: 1fr 1fr; margin-top: 30px">
+    <div class="card" style="border-color:var(--teal)"><h3 style="color:var(--teal-300)">What I decided</h3>
+      <ul><li>The scenario and the one scripted ending</li><li>The visual direction and the mobile-first approach</li><li>Behavior rules: citations, warnings first, no hover</li><li>Every correction after reviewing the prototype</li></ul></div>
+    <div class="card"><h3>What AI executed</h3>
+      <ul><li>Figma file through its MCP connection</li><li>Prototype code, versioned and deployed</li><li>Accessibility and contrast checks</li><li>Review of the work against the PRD</li></ul></div>
+  </div>
+  <div class="grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 26px">
+    <div><div class="stat">11</div><div class="stat-l">states mapped in the handoff flow</div></div>
+    <div><div class="stat">11</div><div class="stat-l">specification panels: behavior, motion, accessibility</div></div>
+    <div><div class="stat">1</div><div class="stat-l">live link, updated on every push to main</div></div>
+  </div>
+  <div class="foot"><span>Tess – AI Tech Copilot · 9 / 10</span><span><a href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs/?node-id=40-72" target="_blank" rel="noopener">Figma · 07 Developer Handoff</a><a href="https://github.com/yurisaback/Radix-Design-Challenge" target="_blank" rel="noopener">GitHub</a></span></div>
+</section>
+
+<!-- 10 · Result -->
+<section class="slide">
+  <span class="kicker"><i></i>Result</span>
+  <h2>What was delivered, and what is not proven</h2>
+  <div class="grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 40px">
+    <div class="card"><h3>Delivered</h3>
+      <ul><li>5 final screens in 2 scenarios</li><li>Design system and developer handoff</li><li>Testable mobile prototype, live</li><li>Review against the PRD success criteria, requirements, risks and guardrails</li></ul></div>
+    <div class="card" style="border-color:var(--amber)"><h3 style="color:var(--amber)">Limits and conscious choices</h3>
+      <ul><li>No interviews or usability tests: nothing is claimed about time saved or trust</li><li>Desktop is a static preview, available in the prototype through the "View desktop version" button; mobile is the tested experience</li><li>"Simulated content" is flagged outside the phone so the product looks real</li><li>All manuals and equipment are fictional</li></ul></div>
+    <div class="card"><h3>Next</h3>
+      <ul><li>Test H1 to H4 with field engineers</li><li>Real, governed documentation</li><li>Interactive desktop</li><li>Measure answer verification and escalation</li></ul></div>
+  </div>
+  <div style="display:flex;gap:16px;margin-top:34px">
+    <a class="btn btn--solid" href="https://radix-design-challenge.vercel.app" target="_blank" rel="noopener"><svg class="ic"><use href="#i-phone"/></svg>Prototype</a>
+    <a class="btn" href="https://www.figma.com/design/bmogfb7skbdfv30rUgvtCs" target="_blank" rel="noopener"><svg class="ic"><use href="#i-figma"/></svg>Figma</a>
+    <a class="btn" href="https://docs.google.com/document/d/1jcxgF5JUd6h43P0SXuCKx555TXa_yM2Hj0ZjNnxvur4/edit?usp=sharing" target="_blank" rel="noopener"><svg class="ic"><use href="#i-doc"/></svg>PRD</a>
+    <a class="btn" href="https://github.com/yurisaback/Radix-Design-Challenge" target="_blank" rel="noopener"><svg class="ic"><use href="#i-code"/></svg>Source code</a>
+  </div>
+  <div class="foot"><span>Tess – AI Tech Copilot · 10 / 10</span><span>Yuri Saback · Senior Product Designer</span></div>
+</section>
+
+<script>
+// Expand every .dev placeholder into the same phone mockup used by the prototype.
+// Tall screens are shown as a phone viewport: the top of the scroll area plus the fixed bottom bar
+// (composer or footer button), lifted so it clears the home indicator like in the prototype.
+var SCREENS = { 's1-home.png': [844, 86], 's2-interaction.png': [844, 86], 's3-response.png': [1787, 86], 's4-source.png': [1101, 92], 's5-insufficient.png': [964, 86, 46] };
+var LIFT = 18;
+document.querySelectorAll('.dev').forEach(function (d) {
+  var m = SCREENS[d.dataset.img], full = m[0], bar = m[1], cut = m[2] || 0, url = 'img/' + d.dataset.img;
+  d.innerHTML = '<div class="scr"><div class="top" style="height:' + (844 - bar - LIFT - cut) + 'px"><img src="' + url + '" alt=""></div>'
+    + '<div class="bar" style="height:' + (bar + LIFT) + 'px;background-image:url(' + url + ');background-position:0 -' + (full - bar) + 'px"></div></div>'
+    + '<i class="isl"></i><i class="hi"></i><i class="hw hw--a"></i><i class="hw hw--b"></i><i class="hw hw--c"></i><i class="hw hw--d"></i>';
+});
+// Extrude the 3D phones: stacked frame layers form the metal edge.
+document.querySelectorAll('.p3').forEach(function (p) {
+  for (var k = 1; k <= 22; k++) { var e = document.createElement('i'); e.className = 'edge'; e.style.transform = 'translateZ(-' + k + 'px)'; p.insertBefore(e, p.firstChild); }
+  var b = document.createElement('i'); b.className = 'back'; p.insertBefore(b, p.firstChild);
+});
+</script>
+</body>
+</html>

@@ -46,6 +46,7 @@ src/                  the prototype (static HTML, CSS and JavaScript)
 docs/
   scenarios.md        scripted scenarios and interaction rules
   review-checklist.md review against the PRD requirements and guardrails
+  presentation/       the 10-page presentation: HTML source (index.html, deck.css, img/) and the exported PDF
   manuals/            the three fictional manuals the sources quote
 scripts/serve.mjs     local static server
 vercel.json           tells Vercel to publish the src folder
@@ -74,6 +75,10 @@ Built in Figma and mirrored in code with the same names:
 | 07 Developer Handoff | State flow (11 states) and specifications (11 panels: behavior, motion, accessibility, acceptance criteria) |
 
 The high-fidelity screens are built only from the library on pages 04 and 05, in dark mode.
+
+## Presentation
+
+[docs/presentation/Tess-AI-Tech-Copilot.pdf](docs/presentation/Tess-AI-Tech-Copilot.pdf) is the consolidated 10-page PDF (situation, task, action, result). Its source is plain HTML in the same folder. To regenerate the PDF, print `index.html` with Chrome headless (`--print-to-pdf`, page size 1920x1080). The screens in it are static example images exported from the Figma file.
 
 ## Decisions worth knowing
 

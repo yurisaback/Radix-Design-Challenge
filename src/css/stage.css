@@ -63,10 +63,12 @@ body { overflow-x: hidden; }
 /* Real phones: no mockup, the app fills the screen */
 .is-narrow .device-wrap::before, .is-narrow .credit { display: none; }
 @media (prefers-reduced-motion: reduce) { .device-wrap::before { animation: none; } }
-.is-narrow .stage { padding: 0; gap: 0; justify-content: flex-start; }
-.is-narrow .device { position: static; width: 100%; height: 100dvh; padding: 0; border-radius: 0; background: none; box-shadow: none; transform: none; }
-.is-narrow .device-screen { width: 100%; height: 100dvh; border-radius: 0; }
-.is-narrow .app { width: 100%; height: 100dvh; --safe-top: env(safe-area-inset-top, 0px); }
+.is-narrow .stage { height: 100dvh; min-height: 0; padding: 0; gap: 0; align-items: stretch; justify-content: flex-start; }
+.is-narrow #view-mobile { flex: 1 1 auto; min-height: 0; width: 100%; }
+.is-narrow .device-wrap { width: 100% !important; height: 100% !important; }
+.is-narrow .device { position: static; width: 100%; height: 100%; padding: 0; border-radius: 0; background: none; box-shadow: none; transform: none; }
+.is-narrow .device-screen { width: 100%; height: 100%; border-radius: 0; }
+.is-narrow .app { width: 100%; height: 100%; --safe-top: env(safe-area-inset-top, 0px); }
 .is-narrow .device-screen .composer, .is-narrow .device-screen .source-footer { padding-bottom: calc(var(--space-lg) + env(safe-area-inset-bottom, 0px)); }
 .is-narrow .statusbar, .is-narrow .island, .is-narrow .home-indicator, .is-narrow .hw, .is-narrow .controls, .is-narrow #view-desktop { display: none; }
 .is-narrow .stage-note { padding: var(--space-sm) var(--space-lg) var(--space-lg); }

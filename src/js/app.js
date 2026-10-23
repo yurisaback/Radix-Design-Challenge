@@ -13,7 +13,7 @@ const DEVICE = { w: 418, h: 872 };
 const DESK = { w: 1440, h: 900 };
 
 const initial = () => ({
-  page: 'home', source: null, sidebar: false, firmware: null, findings: [], findingsOpen: true,
+  page: 'home', source: null, sidebar: false, sheet: false, firmware: null, findings: [], findingsOpen: true,
   messages: [], typing: false, flow: null, step: 0, title: '', waiting: 'fill', token: 0,
   ctxFresh: false, streaming: false, skip: false,
   composer: { mode: 'fill', placeholder: FILL_PLACEHOLDER, text: '', next: 'e214' },
@@ -70,9 +70,11 @@ function syncOverlays() {
   const app = $('#app');
   app.dataset.screen = S.source ? 'source' : S.page;
   app.dataset.sidebar = S.sidebar ? 'open' : 'closed';
-  const locked = S.sidebar || !!S.source;
+  app.dataset.sheet = S.sheet ? 'open' : 'closed';
+  const locked = S.sidebar || !!S.source || S.sheet;
   $('#main').toggleAttribute('inert', locked);
   $('#sidebar').toggleAttribute('inert', !S.sidebar);
+  $('#sheet').toggleAttribute('inert', !S.sheet);
   $('#source').toggleAttribute('inert', !S.source);
   $('#announcer').textContent = announce;
 }
@@ -302,6 +304,13 @@ function setSidebar(open) {
   else $('[data-action="menu"]')?.focus({ preventScroll: true });
 }
 
+function setSheet(open) {
+  S.sheet = open;
+  syncOverlays();
+  if (open) $('#sheet [data-action="close-attach"]').focus({ preventScroll: true });
+  else $('[data-action="attach"]')?.focus({ preventScroll: true });
+}
+
 // ---------- events ----------
 $('#app').addEventListener('click', (e) => {
   if (e.target.closest('.is-streaming, [data-action="skip-typing"]')) { S.skip = true; return; }
@@ -310,6 +319,8 @@ $('#app').addEventListener('click', (e) => {
   const a = t.dataset.action;
   if (a === 'menu') setSidebar(true);
   else if (a === 'close-menu') setSidebar(false);
+  else if (a === 'attach') setSheet(true);
+  else if (a === 'close-attach' || a === 'pick') setSheet(false);
   else if (a === 'suggest') { if (S.page === 'home') startFlow(t.dataset.flow, FLOWS[t.dataset.flow].query); }
   else if (a === 'chip') chooseChip(Number(t.dataset.i));
   else if (a === 'cite') openSource(t.dataset.src);
@@ -324,9 +335,11 @@ $('#app').addEventListener('click', (e) => {
   else if (a === 'inactive') hint();
 });
 $('#scrim').addEventListener('click', () => setSidebar(false));
+$('#sheet-scrim').addEventListener('click', () => setSheet(false));
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;
-  if (S.sidebar) setSidebar(false);
+  if (S.sheet) setSheet(false);
+  else if (S.sidebar) setSidebar(false);
   else if (S.source) closeSource();
 });
 $('#restart').addEventListener('click', reset);
@@ -383,5 +396,6 @@ addEventListener('resize', fit);
 
 // ---------- boot ----------
 $('#sidebar').innerHTML = R.sidebarContent();
+$('#sheet').innerHTML = R.sheetContent();
 renderMain('keep');
 setView('mobile');

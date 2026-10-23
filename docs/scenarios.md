@@ -4,6 +4,8 @@ All content is simulated and illustrative. Sources: files in `docs/manuals/`.
 
 ## Interaction rules (mobile-first)
 
+- **No simulation notices inside the device.** The phone looks like the real product: no "demo", "illustrative" or "simulated" labels, badges or footers. The only notice is the project note outside the phone, above the buttons ("Simulated content for a design prototype. Not manufacturer guidance.").
+
 - **Tapping the composer fills the next scripted user message.** The text appears as if typed by the user; a tap on send submits it. No typing is required.
 - **When the assistant offers options, the user answers with the option chips**, not the composer. The composer is inactive during those turns.
 - **All options in a chip set look identical** (secondary button, solid stroke). Only the scripted option is active, and it is signalled by a soft blink, with no "demo" captions on screen. Tapping another option shows a brief toast ("Choose the option that is blinking.") and the right one blinks.
@@ -71,7 +73,6 @@ The assistant asks one question per turn. Each question comes from a section of 
 6. **Citations are clickable** and replace a separate sources list. Each citation shows document and section, for example `[1] §5.3.1`. Tapping one opens the Source detail view at the cited section. **Every citation is clickable** and opens the Source detail overlay at the cited section (§1.2, §5.1, §5.3, §5.3.1, §6.1, §8.2, §8.3 of the Service Manual, §2 of the Alarm & Error Reference, §2.3 of the Operator's Guide). All look the same; `[1] §5.3.1` in the summary blinks softly as the suggested next step. Reading any source unlocks the follow-up; opening one during a chip question does not change the conversation.
 7. **Basis line** (version stays visible with every answer): "Based on: Service Manual Rev C · Alarm & Error Reference Rev D · Operator's Guide Rev B · Illustrative"
 8. **Next actions:** `Ask a follow-up` · `Contact authorized support` (figurative). The composer stays inactive until the user returns from the source.
-9. Footer: "Simulated content. Not manufacturer guidance. You decide whether to proceed."
 
 | Turn | Speaker | Content |
 |---|---|---|
@@ -109,7 +110,6 @@ Applies only if the user types instead of using the composer fill.
 - Header: document title, section, revision, revision date, approval status.
 - Block **Source text** (quoted, monospaced, left bar).
 - Block **Assistant's explanation** (separate, labeled).
-- Badge: `Illustrative` on every source.
 - Version warning when the firmware in context is outside "Applies to".
 
 ## Download of the full manual (simulated)
@@ -117,3 +117,8 @@ Applies only if the user types instead of using the composer fill.
 - Tapping it shows a simulated system notification at the top of the phone, under the Dynamic Island: "Downloading…" with a short progress bar, then "Download complete" with the file name and size. It dismisses by itself after a few seconds, or by tapping it.
 - Files (simulated): `MIP300-SM_Rev-C.pdf` (3.2 MB), `MIP300-AER_Rev-D.pdf` (640 KB), `MIP300-OG_Rev-B.pdf` (1.1 MB).
 - The primary action "Back to conversation" is fixed at the bottom of the phone only while a manual reference is open.
+
+## Add to session (bottom sheet)
+- The "+" in the message field opens a bottom sheet titled "Add to session" with three tiles: Camera, Photos, Files.
+- It closes with the X, by tapping outside, with Esc, or by picking a tile (the real picker would open outside the app). Nothing is attached in the prototype.
+- It works in every state, including while the assistant is waiting for a chip answer; closing it never changes the conversation.

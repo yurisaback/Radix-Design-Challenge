@@ -7,7 +7,7 @@
 | Document ID | MIP300-AER |
 | Revision | **Rev D** |
 | Revision date | 2025-04-02 |
-| Approval status | Approved for release (simulated) |
+| Approval status | Approved for release |
 | Applies to | Firmware 3.2.x and 3.4.x |
 
 ## 1. How to read this table

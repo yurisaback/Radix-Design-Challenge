@@ -26,7 +26,7 @@ export const CITE = {
   'sm-6-1': '[1] §6.1', 'sm-8-2': '[1] §8.2', 'sm-8-3': '[1] §8.3', 'aer-2': '[2] §2', 'og-2-3': '[3] §2.3',
 };
 
-const SM = { n: 1, title: 'Meridian IP-300 — Service Manual', docId: 'MIP300-SM', rev: 'Rev C · 2025-03-14', approval: 'Approved for release (simulated)', applies: ['3.2.x', '3.4.x'], file: 'MIP300-SM_Rev-C.pdf', size: '3.2 MB' };
+const SM = { n: 1, title: 'Meridian IP-300 — Service Manual', docId: 'MIP300-SM', rev: 'Rev C · 2025-03-14', approval: 'Approved for release', applies: ['3.2.x', '3.4.x'], file: 'MIP300-SM_Rev-C.pdf', size: '3.2 MB' };
 
 // Source documents (verbatim excerpts from docs/manuals)
 export const SOURCES = {
@@ -100,11 +100,11 @@ export const SOURCES = {
   },
   'sm-8-3': {
     ...SM, section: '§8.3 Authorized service',
-    quote: [{ lines: ['Contact the Meridian Technical Support line (simulated: +00 000 000 0000) or your authorized service center. Have the serial number, firmware version and error code ready.'] }],
+    quote: [{ lines: ['Contact the Meridian Technical Support line (+1 555 010 0199) or your authorized service center. Have the serial number, firmware version and error code ready.'] }],
     explanation: 'When the checks do not identify a cause, the manual sends you to authorized service. Have the three items ready before you call.',
   },
   'aer-2': {
-    n: 2, title: 'Meridian IP-300 — Alarm & Error Reference', docId: 'MIP300-AER', rev: 'Rev D · 2025-04-02', approval: 'Approved for release (simulated)', applies: ['3.2.x', '3.4.x'], file: 'MIP300-AER_Rev-D.pdf', size: '640 KB',
+    n: 2, title: 'Meridian IP-300 — Alarm & Error Reference', docId: 'MIP300-AER', rev: 'Rev D · 2025-04-02', approval: 'Approved for release', applies: ['3.2.x', '3.4.x'], file: 'MIP300-AER_Rev-D.pdf', size: '640 KB',
     section: '§2 Error and alarm codes',
     quote: [{ table: { head: ['Code', 'Message', 'Type'], rows: [
       ['E-201', 'Upstream occlusion', 'Recoverable'], ['E-214', 'Downstream occlusion', 'Recoverable'], ['E-220', 'Air in line', 'Recoverable'],
@@ -114,7 +114,7 @@ export const SOURCES = {
     explanation: 'E-915 (pressure sensor out of range) is listed as non-recoverable: the pump must be removed from service and handled by authorized service.',
   },
   'og-2-3': {
-    n: 3, title: 'Meridian IP-300 — Operator’s Guide', docId: 'MIP300-OG', rev: 'Rev B · 2024-11-08', approval: 'Approved for release (simulated)', applies: ['3.x'], file: 'MIP300-OG_Rev-B.pdf', size: '1.1 MB',
+    n: 3, title: 'Meridian IP-300 — Operator’s Guide', docId: 'MIP300-OG', rev: 'Rev B · 2024-11-08', approval: 'Approved for release', applies: ['3.x'], file: 'MIP300-OG_Rev-B.pdf', size: '1.1 MB',
     section: '§2.3 Loading the tubing set',
     quote: [{ bullets: ['Open the door.', 'Insert the pump segment into the channel with the arrow pointing down.', 'Close the door until it latches.', 'Prime the set before connecting to the patient.'] }],
     explanation: 'The Retest check in the Service Manual refers to this procedure for reloading the set.',

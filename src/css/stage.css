@@ -3,8 +3,21 @@ html, body { height: 100%; }
 body { margin: 0; background: radial-gradient(120% 90% at 50% 0%, #121a22 0%, var(--stage-bg) 60%); color: var(--color-text-primary); font-family: var(--font-sans); }
 .stage { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 16px; }
 
+/* Project credit, beside the phone */
+.credit { position: absolute; top: 50%; right: calc(100% + 72px); width: 300px; transform: translateY(-50%); text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.credit-rule { width: 44px; height: 3px; border-radius: 2px; background: var(--color-bg-accent); }
+.credit-title { margin: 0; font: 600 34px/40px var(--font-sans); letter-spacing: -0.4px; color: var(--color-text-primary); }
+.credit-sub { margin: 0; font: 400 16px/24px var(--font-sans); color: var(--color-text-secondary); }
+@media (max-width: 1150px) { .credit { display: none; } }
+
 /* Phone mockup (drawn in CSS) */
-.device-wrap { position: relative; }
+.device-wrap { position: relative; isolation: isolate; }
+/* Soft glow in the primary color behind the phone */
+.device-wrap::before { content: ''; position: absolute; z-index: -1; inset: -12% -75%; pointer-events: none; filter: blur(28px);
+  background: radial-gradient(closest-side, rgba(53, 191, 174, 0.5), rgba(53, 191, 174, 0.22) 50%, rgba(53, 191, 174, 0) 78%);
+  animation: glow 7s ease-in-out infinite; }
+@keyframes glow { 0%, 100% { opacity: 0.8; transform: scale(0.97); } 50% { opacity: 1; transform: scale(1.03); } }
+body { overflow-x: hidden; }
 .device { position: absolute; top: 0; left: 0; width: 418px; height: 872px; padding: 14px; border-radius: 68px; transform-origin: top left;
   background: linear-gradient(145deg, #5a5f66, #1b1e22 38%, #3a3f45 70%, #1b1e22);
   box-shadow: 0 40px 90px rgba(0, 0, 0, 0.65), inset 0 0 0 2px #7a8087, inset 0 0 0 6px #0b0c0e; }
@@ -12,6 +25,8 @@ body { margin: 0; background: radial-gradient(120% 90% at 50% 0%, #121a22 0%, va
 .device-screen .app { --safe-top: 50px; }
 .device-screen .composer { padding-bottom: 30px; }
 .device-screen .sidebar { padding-bottom: 38px; }
+.device-screen .sheet { padding-bottom: 42px; }
+.is-narrow .device-screen .sheet { padding-bottom: calc(var(--space-xl) + env(safe-area-inset-bottom, 0px)); }
 .device-screen .source-footer { padding-bottom: 30px; }
 .island { position: absolute; z-index: 100; top: 11px; left: 50%; transform: translateX(-50%); width: 122px; height: 34px; border-radius: 20px; background: #000; }
 .statusbar { position: absolute; z-index: 90; top: 0; left: 0; right: 0; height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 8px 34px 0 40px; color: var(--color-text-primary); font: 600 15px var(--font-sans); }
@@ -46,6 +61,8 @@ body { margin: 0; background: radial-gradient(120% 90% at 50% 0%, #121a22 0%, va
 .browser-bar .addr { margin-left: 16px; padding: 4px 16px; border-radius: 999px; background: var(--color-bg-surface); color: var(--color-text-muted); font: 400 13px/19px var(--font-sans); }
 
 /* Real phones: no mockup, the app fills the screen */
+.is-narrow .device-wrap::before, .is-narrow .credit { display: none; }
+@media (prefers-reduced-motion: reduce) { .device-wrap::before { animation: none; } }
 .is-narrow .stage { padding: 0; gap: 0; justify-content: flex-start; }
 .is-narrow .device { position: static; width: 100%; height: 100dvh; padding: 0; border-radius: 0; background: none; box-shadow: none; transform: none; }
 .is-narrow .device-screen { width: 100%; height: 100dvh; border-radius: 0; }

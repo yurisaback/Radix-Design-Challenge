@@ -13,6 +13,9 @@ const ICON = {
   download: '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 3.5v9M6 9l4 4 4-4M4 16h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
   file: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 3h7l4.5 4.5V20a1 1 0 0 1-1 1h-10.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M13.5 3v4.5H18" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/></svg>',
   check: '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="m4.5 10.5 3.5 3.5 7.5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
+  camera: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4.5 8.5a1.5 1.5 0 0 1 1.5-1.5h1.6l1.1-1.7a1 1 0 0 1 .85-.45h4.9a1 1 0 0 1 .85.45L16.4 7H18a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 18 19H6a1.5 1.5 0 0 1-1.5-1.5v-9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><circle cx="12" cy="12.8" r="3.2" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>',
+  photos: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="4" y="4.5" width="16" height="15" rx="2.5" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="9" cy="10" r="1.6" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="m5 17 4.5-4.5 3 3 2.5-2.5L19 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
+  files: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M6.5 3h7l4.5 4.5V20a1 1 0 0 1-1 1h-10.5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="none"/><path d="M13.5 3v4.5H18M12 17v-5.5M9.7 13.7 12 11.4l2.3 2.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
   history: '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M3.5 10a6.5 6.5 0 1 0 2-4.7M3.5 3.8v3h3M10 6.5V10l2.5 1.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
   alert: '<svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M10 5.8v5M10 13.6v.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
 };
@@ -78,7 +81,7 @@ const callout = (kind, title, lines) => `
     ${lines.map(([text, ids]) => `<div class="callout-line"><p class="t-body">${esc(text)}</p>${citeList(ids)}</div>`).join('')}
   </div>`;
 
-const basisLine = () => `<div class="basis reveal"><span class="t-caption">${esc(BASIS)}</span>${pill('Illustrative', 'illustrative')}</div>`;
+const basisLine = () => `<div class="basis reveal"><span class="t-caption">${esc(BASIS)}</span></div>`;
 
 const responseBlock = (s) => `
   <div class="block">
@@ -101,9 +104,8 @@ const responseBlock = (s) => `
     ${basisLine()}
     <div class="actions reveal">
       <button class="btn btn--secondary" data-action="inactive">Ask a follow-up</button>
-      <button class="btn btn--secondary" data-action="toast" data-msg="Simulated: this would connect you to authorized support.">Contact authorized support</button>
+      <button class="btn btn--secondary" data-action="toast" data-msg="Connecting you to authorized support…">Contact authorized support</button>
     </div>
-    <p class="t-caption muted reveal">Simulated content. Not manufacturer guidance. You decide whether to proceed.</p>
   </div>`;
 
 const scheduleBlock = (s) => `
@@ -116,7 +118,6 @@ const scheduleBlock = (s) => `
     </tbody></table>
     <div class="cites reveal">${citeBtn('sm-6-1', { primary: true })}</div>
     ${basisLine()}
-    <p class="t-caption muted reveal">Simulated content. Not manufacturer guidance.</p>
   </div>`;
 
 const insufficientBlock = (s) => `
@@ -130,11 +131,10 @@ const insufficientBlock = (s) => `
     <div class="reveal"><p class="t-label muted">What was not found</p>
       <ul class="plain-list">${INSUFFICIENT.notFound.map((t) => `<li class="t-body">${esc(t)}</li>`).join('')}</ul></div>
     <div class="actions reveal">
-      <button class="btn btn--primary" data-action="toast" data-msg="Simulated: this would connect you to authorized support.">Contact authorized support</button>
-      <button class="btn btn--secondary" data-action="toast" data-msg="Simulated: this would open the official documentation.">Open official documentation</button>
+      <button class="btn btn--primary" data-action="toast" data-msg="Connecting you to authorized support…">Contact authorized support</button>
+      <button class="btn btn--secondary" data-action="toast" data-msg="Opening the official documentation…">Open official documentation</button>
       <button class="btn btn--ghost" data-action="reset">Start a new consultation</button>
     </div>
-    <p class="t-caption muted reveal">Simulated content. Not manufacturer guidance.</p>
   </div>`;
 
 export const asstMsg = (m) => {
@@ -161,8 +161,21 @@ export const composer = (c) => {
     : c.mode === 'typing'
       ? `<span class="icon-btn icon-btn--filled" aria-hidden="true">${ICON.up}</span>`
       : `<span class="icon-btn" aria-hidden="true">${ICON.up}</span>`;
-  return `<footer class="composer composer--${c.mode}"><div class="composer-box"><span class="icon-btn" aria-hidden="true">${ICON.plus}</span>${field}${send}</div></footer>`;
+  return `<footer class="composer composer--${c.mode}"><div class="composer-box"><button class="icon-btn" data-action="attach" aria-label="Add to session">${ICON.plus}</button>${field}${send}</div></footer>`;
 };
+
+export const sheetContent = () => `
+  <span class="sheet-handle" aria-hidden="true"></span>
+  <div class="sheet-head">
+    <button class="icon-plain" data-action="close-attach" aria-label="Close">${ICON.close}</button>
+    <h2 class="sheet-title">Add to session</h2>
+    <span class="icon-plain" aria-hidden="true"></span>
+  </div>
+  <div class="sheet-grid">
+    <button class="tile" data-action="pick"><span class="tile-ic">${ICON.camera}</span><span class="t-body">Camera</span></button>
+    <button class="tile" data-action="pick"><span class="tile-ic">${ICON.photos}</span><span class="t-body">Photos</span></button>
+    <button class="tile" data-action="pick"><span class="tile-ic">${ICON.files}</span><span class="t-body">Files</span></button>
+  </div>`;
 
 export const sidebarContent = () => `
   <div class="sb-top"><span class="mark" aria-hidden="true"></span><span class="t-title">AI Technical Copilot</span>
@@ -197,7 +210,6 @@ export const sourceBody = (id, firmware) => {
         <dt>Document</dt><dd>${esc(s.docId)}</dd><dt>Revision</dt><dd>${esc(s.rev)}</dd>
         <dt>Approval</dt><dd>${esc(s.approval)}</dd><dt>Applies to</dt><dd>Firmware ${s.applies.join(', ')}</dd>
         <dt>Section</dt><dd>${esc(s.section)}</dd></dl>
-      ${pill('Illustrative · not manufacturer guidance', 'illustrative')}
       <button class="link" data-action="download" data-src="${id}">${ICON.download}<span>Download full manual · PDF · ${esc(s.size)}</span></button>
     </div>
     ${check}
@@ -207,7 +219,7 @@ export const sourceBody = (id, firmware) => {
       <p class="t-body">${esc(s.explanation)}</p></section>`;
 };
 
-// Simulated OS notification for the download of a manual
+// OS-style notification for the download of a manual
 export const notif = ({ state, file, size }) => `
   <button class="notif-card" data-action="dismiss-notif" aria-label="Dismiss notification">
     <span class="notif-icon">${state === 'done' ? ICON.check : ICON.file}</span>

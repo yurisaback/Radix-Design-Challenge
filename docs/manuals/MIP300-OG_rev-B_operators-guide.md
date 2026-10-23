@@ -7,7 +7,7 @@
 | Document ID | MIP300-OG |
 | Revision | **Rev B** |
 | Revision date | 2024-11-08 |
-| Approval status | Approved for release (simulated) |
+| Approval status | Approved for release |
 | Applies to | Firmware 3.x |
 
 ## 1. Overview

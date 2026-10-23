@@ -7,7 +7,7 @@
 | Document ID | MIP300-SM |
 | Revision | **Rev C** |
 | Revision date | 2025-03-14 |
-| Approval status | Approved for release (simulated) |
+| Approval status | Approved for release |
 | Applies to | Firmware **3.2.x** and **3.4.x** |
 | Superseded | Rev B (firmware 2.x, 3.0.x, 3.1.x) |
 | Audience | Qualified biomedical and field service personnel |
@@ -195,4 +195,4 @@ The following assemblies are **not** covered by this manual. Calibration data, t
 - Main control board
 
 ### 8.3 Authorized service
-Contact the Meridian Technical Support line (simulated: +00 000 000 0000) or your authorized service center. Have the serial number, firmware version and error code ready.
+Contact the Meridian Technical Support line (+1 555 010 0199) or your authorized service center. Have the serial number, firmware version and error code ready.

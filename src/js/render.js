@@ -186,7 +186,7 @@ export const sheetContent = () => `
   </div>`;
 
 export const sidebarContent = () => `
-  <div class="sb-top"><span class="mark" aria-hidden="true"></span><span class="t-title">AI Technical Copilot</span>
+  <div class="sb-top"><span class="mark" aria-hidden="true"></span><span class="t-title">Tess - AI Tech Copilot</span>
     <button class="icon-plain" data-action="close-menu" aria-label="Close menu">${ICON.close}</button></div>
   <button class="btn btn--secondary sb-new" data-action="reset"><span aria-hidden="true">+</span> New consultation</button>
   <div class="sb-search t-body muted">Search consultations</div>

@@ -49,7 +49,7 @@ function renderMain(scroll = 'end') {
   const mk = (html, fresh) => (fresh ? html.replace('class="msg', 'class="msg msg--in') : html);
   const list = home ? R.homeView() : S.messages.map((m) => mk(m.role === 'user' ? R.userMsg(m.text) : R.asstMsg(m), m.fresh)).join('') + (S.typing ? mk(R.typingMsg(), true) : '');
   S.messages.forEach((m) => { m.fresh = false; });
-  main.innerHTML = R.header(home ? 'AI Technical Copilot' : S.title)
+  main.innerHTML = R.header(home ? 'Tess - AI Tech Copilot' : S.title)
     + (home ? '' : R.ctxBar(S.firmware, S.ctxFresh))
     + (!home && S.findings.length ? R.findingsPanel(S.findings, S.findingsOpen) : '')
     + `<div class="body${home ? ' body--home' : ''}" id="body">${list}</div>`
@@ -356,7 +356,7 @@ $('#restart').addEventListener('click', reset);
 function desktopHtml(tab) {
   const side = `<aside class="d-sidebar">${R.sidebarContent()}</aside>`;
   if (tab === 'home') {
-    return `${side}<section class="d-main"><header class="header header--desk"><h1 class="t-title">AI Technical Copilot</h1></header>
+    return `${side}<section class="d-main"><header class="header header--desk"><h1 class="t-title">Tess - AI Tech Copilot</h1></header>
       <div class="body body--home d-body"><div class="d-col">${R.homeView()}</div></div>
       ${R.composer({ mode: 'fill', placeholder: FILL_PLACEHOLDER })}</section>`;
   }

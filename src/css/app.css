@@ -47,13 +47,16 @@ button[aria-disabled='true'] { cursor: default; }
 .cite { display: inline-flex; align-items: center; min-height: 28px; padding: var(--space-2xs) var(--space-sm); border-radius: var(--radius-sm); border: 1px solid var(--color-border-accent); background: var(--color-bg-surface); color: var(--color-text-accent); font: 500 11px/16px var(--font-sans); }
 .cite--blink { animation: soft-blink 2s ease-in-out infinite; }
 .callout-line { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
-.plain-list .cite { margin-left: var(--space-xs); vertical-align: middle; }
+.plain-list:has(.found-item) { gap: var(--space-md); }
+.found-item { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 .suggest-tag { display: inline-flex; align-items: center; gap: 6px; }
 .cites { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 .chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 /* All options look the same (secondary button, solid stroke); only the selectable one blinks softly. */
 .chip { min-height: 44px; padding: var(--space-md) var(--space-lg); border-radius: var(--radius-full); font: 500 14px/21px var(--font-sans); border: 1px solid var(--color-border-strong); color: var(--color-text-primary); background: transparent; }
 .chip--active { animation: soft-blink 2s ease-in-out infinite; }
+.chip--wide { display: block; width: 100%; text-align: left; border-radius: var(--radius-xl); }
+.followups { display: flex; flex-direction: column; gap: var(--space-sm); }
 @keyframes soft-blink { 0%, 100% { box-shadow: 0 0 0 0 rgba(53, 191, 174, 0); border-color: var(--color-border-strong); } 50% { box-shadow: 0 0 0 4px rgba(53, 191, 174, 0.38); border-color: var(--color-border-accent); } }
 .btn { min-height: 44px; padding: var(--space-md) var(--space-lg); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; gap: var(--space-sm); font: 600 14px/20px var(--font-sans); text-align: center; }
 .btn--primary { background: var(--color-bg-accent); color: var(--color-text-on-accent); }
@@ -85,6 +88,10 @@ button[aria-disabled='true'] { cursor: default; }
 .step-body { display: flex; flex-direction: column; gap: var(--space-sm); min-width: 0; }
 .ruled { display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); width: 100%; border: 1px solid var(--color-border-default); border-radius: var(--radius-md); padding: var(--space-md); }
 .ruled-text { display: flex; flex-direction: column; }
+.ruled-chevron { display: grid; flex: none; transition: transform 0.2s; }
+.ruled[aria-expanded='true'] .ruled-chevron { transform: rotate(90deg); }
+.ruled-list { list-style: none; margin: var(--space-sm) 0 0; padding: 0 var(--space-md) 0 var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md); border-left: 2px solid var(--color-border-default); }
+.ruled-list li { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 .basis { background: var(--color-bg-subtle); color: var(--color-text-secondary); border-radius: var(--radius-md); padding: var(--space-md); display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
 .actions { display: flex; flex-direction: column; gap: var(--space-sm); }
 .banner { background: var(--color-bg-warning-subtle); border: 1px solid var(--color-border-warning); border-radius: var(--radius-lg); padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-sm); }
@@ -127,9 +134,9 @@ button[aria-disabled='true'] { cursor: default; }
 
 /* Sidebar, source overlay, toast */
 .scrim { position: absolute; inset: 0; z-index: 25; background: rgba(0, 0, 0, 0.62); opacity: 0; pointer-events: none; transition: opacity 0.25s; }
-.app[data-sidebar='open'] .scrim { opacity: 1; pointer-events: auto; }
+.app[data-sidebar='open'] #scrim { opacity: 1; pointer-events: auto; }
 .sidebar, .d-sidebar { background: var(--color-bg-subtle); display: flex; flex-direction: column; gap: var(--space-md); padding: var(--space-lg); }
-.sidebar { position: absolute; z-index: 30; inset: 0 auto 0 0; width: 320px; padding-top: calc(var(--safe-top) + var(--space-lg)); border-right: 1px solid var(--color-bg-muted); transform: translateX(-100%); visibility: hidden; transition: transform 0.25s, visibility 0s 0.25s; overflow-y: auto; }
+.sidebar { position: absolute; z-index: 30; inset: 0 auto 0 0; width: 320px; padding-top: calc(var(--safe-top) + var(--space-lg)); border-right: 1px solid var(--color-bg-muted); transform: translateX(-100%); visibility: hidden; transition: transform 0.25s, visibility 0s 0.25s; overflow: hidden; }
 .app[data-sidebar='open'] .sidebar { transform: none; visibility: visible; transition: transform 0.25s, visibility 0s; }
 .sb-top { display: flex; align-items: center; gap: var(--space-sm); }
 .sb-top .icon-plain { margin-left: auto; }
@@ -137,10 +144,11 @@ button[aria-disabled='true'] { cursor: default; }
 .sb-nav { display: flex; flex-direction: column; }
 .sb-item { display: flex; align-items: center; gap: var(--space-md); min-height: 44px; padding: 0 var(--space-sm); border-radius: var(--radius-md); color: var(--color-text-secondary); }
 .sb-ic { width: 16px; height: 16px; border: 1px solid var(--color-text-muted); border-radius: 3px; flex: none; }
-.sb-recents { display: flex; flex-direction: column; gap: var(--space-2xs); min-height: 0; }
-.sb-recents .t-label { margin: var(--space-sm) 0 var(--space-2xs); }
+/* Only the list of previous consultations scrolls; the top and the profile stay fixed on a solid background */
+.sb-recents { display: flex; flex-direction: column; gap: var(--space-2xs); flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--night-500) transparent; }
+.sb-recents .t-label { position: sticky; top: 0; z-index: 1; padding: var(--space-sm) 0 var(--space-2xs); background: var(--color-bg-subtle); }
 .recent { display: flex; flex-direction: column; width: 100%; padding: 6px var(--space-sm); border-radius: var(--radius-md); }
-.sb-profile { margin-top: auto; display: flex; align-items: center; gap: 10px; padding-top: var(--space-md); border-top: 1px solid var(--color-bg-muted); }
+.sb-profile { flex: none; background: var(--color-bg-subtle); display: flex; align-items: center; gap: 10px; padding-top: var(--space-md); border-top: 1px solid var(--color-bg-muted); }
 .sb-user { display: flex; flex-direction: column; flex: 1; }
 .scrim--sheet { z-index: 35; }
 .app[data-sheet='open'] .scrim--sheet { opacity: 1; pointer-events: auto; }

@@ -71,9 +71,9 @@ export const homeView = () => `
 
 export const userMsg = (text) => `<div class="msg msg-user"><div class="bubble t-body">${esc(text)}</div></div>`;
 
-const asstLabel = '<div class="asst-label t-meta"><span class="mark" aria-hidden="true"></span>Copilot</div>';
+const asstLabel = '<div class="asst-label t-meta"><span class="mark" aria-hidden="true"></span>Tess</div>';
 
-export const typingMsg = () => `<div class="msg msg-asst" role="status" aria-label="Copilot is typing">${asstLabel}<div class="dots" aria-hidden="true"><i></i><i></i><i></i></div></div>`;
+export const typingMsg = () => `<div class="msg msg-asst" role="status" aria-label="Tess is typing">${asstLabel}<div class="dots" aria-hidden="true"><i></i><i></i><i></i></div></div>`;
 
 const callout = (kind, title, lines) => `
   <div class="callout callout--${kind}">
@@ -83,12 +83,12 @@ const callout = (kind, title, lines) => `
 
 const basisLine = () => `<div class="basis reveal"><span class="t-caption">${esc(BASIS)}</span></div>`;
 
-const responseBlock = (s) => `
+const responseBlock = (s, open) => `
   <div class="block">
     <div class="summary">
       <p class="t-label muted">Summary</p>
       ${tp('t-body-lg summary-text', RESPONSE.summary, s)}
-      <div class="summary-meta reveal">${pill('Based on your answers', 'neutral')}${citeBtn('sm-5-3-1', { primary: true })}</div>
+      <div class="summary-meta reveal">${pill('Based on your answers', 'neutral')}${citeBtn('sm-5-3-1')}</div>
     </div>
     <div class="reveal">${callout('warning', 'Before you start', RESPONSE.warnings)}</div>
     <div class="steps reveal">
@@ -97,13 +97,21 @@ const responseBlock = (s) => `
         <div class="step"><span class="step-num t-meta">${i + 1}</span>
           <div class="step-body"><p class="t-body">${esc(t)}</p>${citeList(cs)}</div></div>`).join('')}
     </div>
-    <button class="ruled reveal" data-action="inactive">
-      <span class="ruled-text"><span class="t-body-strong">Ruled out in this conversation (2)</span><span class="t-caption muted">Based on your answers, not verified by the assistant.</span></span>${ICON.chevron}
-    </button>
+    <div class="ruled-wrap reveal">
+      <button class="ruled" data-action="toggle-ruled" aria-expanded="${open}">
+        <span class="ruled-text"><span class="t-body-strong">Ruled out in this conversation (${RESPONSE.ruledOut.length})</span><span class="t-caption muted">Based on your answers, not verified by the assistant.</span></span><span class="ruled-chevron">${ICON.chevron}</span>
+      </button>
+      ${open ? `<ul class="ruled-list">${RESPONSE.ruledOut.map(([t, ids]) => `<li><p class="t-body">${esc(t)}</p>${citeList(ids)}</li>`).join('')}</ul>` : ''}
+    </div>
     <div class="reveal">${callout('info', 'Not covered by the documents', RESPONSE.notCovered)}</div>
     ${basisLine()}
+    <div class="followups reveal">
+      <p class="t-label muted">Suggested follow-ups</p>
+      ${RESPONSE.followups.map((f) => f.flow
+        ? `<button class="chip chip--wide chip--active" data-action="followup" data-flow="${f.flow}">${esc(f.text)}</button>`
+        : `<button class="chip chip--wide" data-action="hint-chip" aria-disabled="true">${esc(f.text)}</button>`).join('')}
+    </div>
     <div class="actions reveal">
-      <button class="btn btn--secondary" data-action="inactive">Ask a follow-up</button>
       <button class="btn btn--secondary" data-action="toast" data-msg="Connecting you to authorized support…">Contact authorized support</button>
     </div>
   </div>`;
@@ -116,7 +124,7 @@ const scheduleBlock = (s) => `
       <tr><td>6 months</td><td>Cleaning (6.2), battery check (6.3)</td></tr>
       <tr><td>12 months</td><td>Performance verification (section 7)</td></tr>
     </tbody></table>
-    <div class="cites reveal">${citeBtn('sm-6-1', { primary: true })}</div>
+    <div class="cites reveal">${citeBtn('sm-6-1')}</div>
     ${basisLine()}
   </div>`;
 
@@ -127,7 +135,7 @@ const insufficientBlock = (s) => `
       ${tp('t-body', INSUFFICIENT.message, s)}
     </div>
     <div class="reveal"><p class="t-label muted">What was found</p>
-      <ul class="plain-list">${INSUFFICIENT.found.map(([t, id], i) => `<li class="t-body">${esc(t)} ${citeBtn(id, { primary: i === 0 })}</li>`).join('')}</ul></div>
+      <ul class="plain-list">${INSUFFICIENT.found.map(([t, id], i) => `<li><div class="found-item"><p class="t-body">${esc(t)}</p>${citeList([id])}</div></li>`).join('')}</ul></div>
     <div class="reveal"><p class="t-label muted">What was not found</p>
       <ul class="plain-list">${INSUFFICIENT.notFound.map((t) => `<li class="t-body">${esc(t)}</li>`).join('')}</ul></div>
     <div class="actions reveal">
@@ -139,7 +147,7 @@ const insufficientBlock = (s) => `
 
 export const asstMsg = (m) => {
   const s = !!m.stream;
-  const body = m.kind === 'response' ? responseBlock(s) : m.kind === 'schedule' ? scheduleBlock(s) : m.kind === 'insufficient' ? insufficientBlock(s) : '';
+  const body = m.kind === 'response' ? responseBlock(s, !!m.open) : m.kind === 'schedule' ? scheduleBlock(s) : m.kind === 'insufficient' ? insufficientBlock(s) : '';
   const paras = (m.paras || []).map((p) => tp('t-body-lg', p, s)).join('');
   const cites = m.cites && m.cites.length ? `<div class="cites reveal">${m.cites.map((c) => citeBtn(c)).join('')}</div>` : '';
   const chips = m.chips && m.awaiting

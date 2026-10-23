@@ -68,16 +68,17 @@ The assistant asks one question per turn. Each question comes from a section of 
    2. Report it to the biomedical department before changing it. [1 §5.3, §5.3.1]
    3. After an approved change, reload the set and run 25 mL/h for 2 minutes. [1 §5.3 Retest, 3 §2.3]
    4. If E-214 returns on a verified clear line, stop and contact authorized service. [1 §5.3, §8.3]
-4. **Ruled out in this conversation:** closed clamp or kink, blocked filter or access device. (Based on your answers, not verified by the assistant.)
+4. **Ruled out in this conversation (2):** a card that expands on tap to list what the user's answers excluded (downstream line clear, filters and access devices clear), each with its citation. Based on your answers, not verified by the assistant.
 5. **Not covered:** pressure sensor module repair or calibration. [1 §8.2]
-6. **Citations are clickable** and replace a separate sources list. Each citation shows document and section, for example `[1] §5.3.1`. Tapping one opens the Source detail view at the cited section. **Every citation is clickable** and opens the Source detail overlay at the cited section (§1.2, §5.1, §5.3, §5.3.1, §6.1, §8.2, §8.3 of the Service Manual, §2 of the Alarm & Error Reference, §2.3 of the Operator's Guide). All look the same; `[1] §5.3.1` in the summary blinks softly as the suggested next step. Reading any source unlocks the follow-up; opening one during a chip question does not change the conversation.
+6. **Citations are clickable** and replace a separate sources list. Each citation shows document and section, for example `[1] §5.3.1`. Tapping one opens the Source detail view at the cited section. **Every citation is clickable** and opens the Source detail overlay at the cited section (§1.2, §5.1, §5.3, §5.3.1, §6.1, §8.2, §8.3 of the Service Manual, §2 of the Alarm & Error Reference, §2.3 of the Operator's Guide). All look the same and none blinks. Reading sources is optional and never blocks the follow-up; opening one during a chip question does not change the conversation.
 7. **Basis line** (version stays visible with every answer): "Based on: Service Manual Rev C · Alarm & Error Reference Rev D · Operator's Guide Rev B · Illustrative"
-8. **Next actions:** `Ask a follow-up` · `Contact authorized support` (figurative). The composer stays inactive until the user returns from the source.
+8. **Suggested follow-ups** (replace the old "Ask a follow-up" button): three questions the user can tap instead of typing. All look the same (secondary, solid stroke); only "Can I recalibrate the IP-300 pressure sensor without the factory tool?" is active and blinks softly (it leads to Scenario 2). The other two ("What if E-214 returns after the retest?", "Show me how to reload the tubing set.") only show a brief hint in the demo. In a real product each would send its question.
+9. **Next action:** `Contact authorized support` (in a real product it would open the support contact with the conversation context attached: equipment, serial number, firmware, error code and the findings). The composer is also ready as soon as the answer finishes: tapping it fills the same follow-up. Reading sources is optional.
 
 | Turn | Speaker | Content |
 |---|---|---|
-| 13 | User (tap) | Citation `[1] §5.3.1` → Source detail opens at §5.3.1 (source text, assistant explanation, version check) |
-| 14 | User (tap) | `Back to answer` → returns to the response; the composer is now active and fills the follow-up (Scenario 2) |
+| 13 | User (tap), optional | Any citation, e.g. `[1] §5.3.1` → Source detail opens at that section (source text, assistant explanation, version check) |
+| 14 | User (tap) | Tap the composer → the follow-up question is typed in (Scenario 2); tap send |
 
 If the user had selected `3.2.x` at turn 3, turns 10–11 would be skipped. This path is not built in the prototype.
 

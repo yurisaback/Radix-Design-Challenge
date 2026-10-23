@@ -13,7 +13,8 @@ export const SUGGESTIONS = [
 export const RECENTS = [
   { group: 'Today', items: [['ECG lead-off alarm on bedside unit', 'Patient monitor'], ['Daily self-test failed', 'Ventilator']] },
   { group: 'Yesterday', items: [['Battery capacity check procedure', 'Defibrillator'], ['Probe not detected', 'Ultrasound system']] },
-  { group: 'Previous 7 days', items: [['Alarm after cleaning', 'Syringe pump']] },
+  { group: 'Previous 7 days', items: [['Alarm after cleaning', 'Syringe pump'], ['Leak test fails at step 3', 'Anesthesia machine'], ['Flow rate drifts on long runs', 'Infusion pump'], ['Calibration reminder will not clear', 'Pulse oximeter']] },
+  { group: 'Earlier', items: [['Transport monitor battery drains fast', 'Patient monitor'], ['Self-test code E-102', 'Defibrillator'], ['Probe cleaning intervals', 'Ultrasound system'], ['Door latch does not close', 'Syringe pump']] },
 ];
 
 export const NAV = ['Equipment', 'Documents', 'Saved answers', 'Help & feedback'];
@@ -154,6 +155,17 @@ export const RESPONSE = {
     ['If E-214 returns on a verified clear line, stop and contact authorized service.', ['sm-5-3', 'sm-8-3']],
   ],
   notCovered: [['Pressure sensor module repair or calibration.', ['sm-8-2']]],
+  // suggested follow-ups: only the scripted one (with a flow) is active in the demo
+  followups: [
+    { text: 'Can I recalibrate the IP-300 pressure sensor without the factory tool?', flow: 'recal' },
+    { text: 'What if E-214 returns after the retest?' },
+    { text: 'Show me how to reload the tubing set.' },
+  ],
+  // from the user's own answers during the conversation, not verified by the assistant
+  ruledOut: [
+    ['Downstream line is clear: no closed clamp, roller clamp, stopcock or kink.', ['sm-5-3']],
+    ['Filters and access devices are free of visible blockage.', ['sm-5-3']],
+  ],
 };
 
 export const INSUFFICIENT = {

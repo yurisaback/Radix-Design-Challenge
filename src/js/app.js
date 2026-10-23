@@ -91,13 +91,14 @@ function toast(msg) {
 const HINTS = {
   suggest: ['Tap one of the suggestions to start.', null],
   chip: ['Choose the option that is blinking.', '.chip--active'],
+  followup: ['Choose the suggestion that is blinking.', '.followups .chip--active'],
   cite: ['Open a citation to verify the source.', '.cite--blink'],
   fill: ['Tap the message box to continue.', '.composer--fill .composer-box'],
   send: ['Tap send to continue.', '.icon-btn--filled'],
 };
-function hint() {
+function hint(kind = S.waiting) {
   if (S.streaming) return;
-  const [msg, sel] = HINTS[S.waiting] || ['This is illustrative content in the prototype.', null];
+  const [msg, sel] = HINTS[kind] || ['This is not available right now.', null];
   toast(msg);
   if (!sel) return;
   const el = $(sel, $('#app'));
@@ -145,8 +146,8 @@ async function startFlow(id, text) {
   await assistantTurn(tok);
 }
 
-async function playAssistant(el, m, tok) {
-  if (!el) { m.stream = false; return; }
+async function playAssistant(el, m, tok, onReveal) {
+  if (!el) { m.stream = false; onReveal?.(); return; }
   S.streaming = true;
   S.skip = false;
   const body = $('#body');
@@ -171,6 +172,7 @@ async function playAssistant(el, m, tok) {
   m.stream = false;
   S.streaming = false;
   S.skip = false;
+  onReveal?.(); // taps are accepted from the moment the options are visible
   body.scrollTo({ top: body.scrollHeight, behavior: reduce ? 'auto' : 'smooth' });
   if (items.length) await delay(Math.min(items.length, 7) * 110 + 250);
 }
@@ -191,15 +193,27 @@ async function assistantTurn(tok) {
     announce = `${step.paras[0]} Options: ${step.chips.map((c) => c.label).join(', ')}.`;
   } else {
     S.findingsOpen = false;
-    S.composer = { mode: 'disabled', placeholder: step.kind === 'insufficient' ? 'Start a new consultation to continue' : 'Verify the source to continue', text: '' };
-    announce = 'The assistant answered. Tap the highlighted citation to verify the source.';
+    S.composer = { mode: 'disabled', placeholder: FLOWS[S.flow].after ? FOLLOWUP_PLACEHOLDER : 'Start a new consultation to continue', text: '' };
+    announce = 'The assistant answered. You can open any citation to read the source.';
   }
   renderMain('end');
   const el = [...document.querySelectorAll('#body .msg-asst')].pop();
-  await playAssistant(el, m, tok);
-  if (tok !== S.token) return;
-  S.waiting = step.chips ? 'chip' : 'cite';
-  $('#announcer').textContent = announce;
+  const ready = () => {
+    if (tok !== S.token) return;
+    if (step.chips) {
+      S.waiting = 'chip';
+    } else {
+      // the follow-up is ready right after the answer; reading sources is optional
+      const after = FLOWS[S.flow].after;
+      S.waiting = after ? 'fill' : null;
+      if (after) {
+        S.composer = { mode: 'fill', placeholder: FOLLOWUP_PLACEHOLDER, text: '', next: after };
+        renderComposer();
+      }
+    }
+    $('#announcer').textContent = announce;
+  };
+  await playAssistant(el, m, tok, ready);
 }
 
 async function chooseChip(i) {
@@ -230,21 +244,8 @@ function openSource(id) {
 
 function closeSource() {
   S.source = null;
-  if (S.waiting === 'cite') {
-    // reading any source unlocks the next step of the demo
-    const after = FLOWS[S.flow].after;
-    if (after) {
-      S.waiting = 'fill';
-      S.composer = { mode: 'fill', placeholder: FOLLOWUP_PLACEHOLDER, text: '', next: after };
-    } else {
-      S.waiting = null;
-    }
-    renderMain('keep');
-    $('.cite--blink')?.focus({ preventScroll: true });
-  } else {
-    syncOverlays();
-    S.opener?.focus({ preventScroll: true });
-  }
+  syncOverlays();
+  S.opener?.focus({ preventScroll: true });
 }
 
 // The demo types the scripted message into the field like a person would.
@@ -323,6 +324,8 @@ $('#app').addEventListener('click', (e) => {
   else if (a === 'close-attach' || a === 'pick') setSheet(false);
   else if (a === 'suggest') { if (S.page === 'home') startFlow(t.dataset.flow, FLOWS[t.dataset.flow].query); }
   else if (a === 'chip') chooseChip(Number(t.dataset.i));
+  else if (a === 'followup') { if (S.waiting === 'fill' && !S.streaming) startFlow(t.dataset.flow, FLOWS[t.dataset.flow].query); }
+  else if (a === 'hint-chip') hint('followup');
   else if (a === 'cite') openSource(t.dataset.src);
   else if (a === 'back') closeSource();
   else if (a === 'fill') fillComposer();
@@ -331,6 +334,11 @@ $('#app').addEventListener('click', (e) => {
   else if (a === 'toggle-findings') { if (S.streaming) return; S.findingsOpen = !S.findingsOpen; renderMain('keep'); $('[data-action="toggle-findings"]')?.focus({ preventScroll: true }); }
   else if (a === 'download') download(t.dataset.src);
   else if (a === 'dismiss-notif') hideNotif();
+  else if (a === 'toggle-ruled') {
+    if (S.streaming) return;
+    const m = [...S.messages].reverse().find((x) => x.kind === 'response');
+    if (m) { m.open = !m.open; renderMain('keep'); $('[data-action="toggle-ruled"]')?.focus({ preventScroll: true }); }
+  }
   else if (a === 'toast') toast(t.dataset.msg);
   else if (a === 'inactive') hint();
 });
